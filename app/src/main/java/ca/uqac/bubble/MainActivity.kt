@@ -1,6 +1,8 @@
 package ca.uqac.bubble
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,29 +17,12 @@ import ca.uqac.bubble.ui.theme.BubbleAppTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            BubbleAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+        setContentView(R.layout.activity_main)
+
+        val calendrierbutton = findViewById<Button>(R.id.calendrier_btn)
+        calendrierbutton.setOnClickListener{
+            val Intent = Intent(this,Calendrier::class.java)
+            startActivity(Intent)
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    BubbleAppTheme {
-        Greeting("Android")
     }
 }
