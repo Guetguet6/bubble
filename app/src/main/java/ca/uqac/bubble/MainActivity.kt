@@ -21,8 +21,10 @@ class MainActivity : ComponentActivity() {
 
         val calendrierbutton = findViewById<Button>(R.id.calendrier_btn)
         calendrierbutton.setOnClickListener{
-            val Intent = Intent(this,Calendrier::class.java)
+            val Intent = Intent(this,CalendrierActivity::class.java)
             startActivity(Intent)
         }
+
+
     }
 }

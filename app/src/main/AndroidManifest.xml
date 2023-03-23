@@ -12,7 +12,15 @@
         android:theme="@style/Theme.BubbleApp"
         tools:targetApi="31">
         <activity
-            android:name=".Calendrier"
+            android:name=".CalendrierActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".WeekViewActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".EventEditActivity"
             android:exported="false">
         </activity>
         <activity

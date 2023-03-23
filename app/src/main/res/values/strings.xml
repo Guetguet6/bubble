@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BubbleApp</string>
+    <string name="back">Précédent</string>
+    <string name="forward">Suivant</string>
 </resources>
