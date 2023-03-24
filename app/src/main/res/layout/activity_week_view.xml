@@ -58,6 +58,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="DIM"
+            android:textColor="@color/gray"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="LUN"
             android:textColor="@color/gray"
             android:textAlignment="center"
@@ -104,15 +113,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="SAM"
-            android:textColor="@color/gray"
-            android:textAlignment="center"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="DIM"
             android:textColor="@color/gray"
             android:textAlignment="center"
             android:textSize="16sp"/>
