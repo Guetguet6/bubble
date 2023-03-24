@@ -12,9 +12,13 @@
         android:theme="@style/Theme.BubbleApp"
         tools:targetApi="31">
         <activity
+            android:name=".ToDoListActivity"
+            android:exported="false"
+            android:label="@string/title_activity_to_do_list"
+            android:theme="@style/Theme.BubbleApp.NoActionBar" />
+        <activity
             android:name=".Calendrier"
-            android:exported="false">
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

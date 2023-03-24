@@ -21,8 +21,15 @@ class MainActivity : ComponentActivity() {
 
         val calendrierbutton = findViewById<Button>(R.id.calendrier_btn)
         calendrierbutton.setOnClickListener{
-            val Intent = Intent(this,Calendrier::class.java)
-            startActivity(Intent)
+            val intent = Intent(this,Calendrier::class.java)
+            startActivity(intent)
+        }
+
+
+        val toDoListButton = findViewById<Button>(R.id.toDoList_btn)
+        toDoListButton.setOnClickListener{
+            val intent = Intent(this,ToDoListActivity::class.java)
+            startActivity(intent)
         }
     }
 }
