@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">BubbleApp</string>
+    <string name="app_name">Bubble</string>
+    <string name="title_activity_sante">Sante</string>
 </resources>
