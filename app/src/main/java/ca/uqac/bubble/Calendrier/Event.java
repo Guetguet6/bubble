@@ -1,4 +1,4 @@
-package ca.uqac.bubble;
+package ca.uqac.bubble.Calendrier;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

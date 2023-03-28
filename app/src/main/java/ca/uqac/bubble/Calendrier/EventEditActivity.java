@@ -1,23 +1,17 @@
-package ca.uqac.bubble;
-
-import androidx.appcompat.app.AppCompatActivity;
+package ca.uqac.bubble.Calendrier;
 
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.app.AlertDialog;
 import android.app.TimePickerDialog;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
 
-import java.util.Locale;
-
 import java.time.LocalTime;
+
+import ca.uqac.bubble.R;
 
 public class EventEditActivity extends Activity
 {

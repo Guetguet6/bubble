@@ -1,4 +1,4 @@
-package ca.uqac.bubble;
+package ca.uqac.bubble.Calendrier;
 
 import android.view.View;
 import android.widget.TextView;
@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import ca.uqac.bubble.R;
 
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {

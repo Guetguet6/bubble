@@ -1,6 +1,5 @@
-package ca.uqac.bubble;
+package ca.uqac.bubble.Calendrier;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,14 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static ca.uqac.bubble.CalendarUtils.daysInMonthArray;
-import static ca.uqac.bubble.CalendarUtils.daysInWeekArray;
-import static ca.uqac.bubble.CalendarUtils.monthYearFromDate;
+import static ca.uqac.bubble.Calendrier.CalendarUtils.daysInWeekArray;
+import static ca.uqac.bubble.Calendrier.CalendarUtils.monthYearFromDate;
+
+import ca.uqac.bubble.R;
 
 
 public class WeekViewActivity extends Activity implements CalendarAdapter.OnItemListener
