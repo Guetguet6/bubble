@@ -26,9 +26,11 @@ class MainActivity : ComponentActivity() {
             startActivity(Intent)
         }
         val profilbutton = findViewById<Button>(R.id.profil_btn)
-        calendrierbutton.setOnClickListener{
+        profilbutton.setOnClickListener{
             val Intent = Intent(this,ProfileActivity::class.java)
             startActivity(Intent)
         }
     }
+
+
 }
