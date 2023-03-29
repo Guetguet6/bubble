@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import ca.uqac.bubble.profil.ProfileActivity
 import ca.uqac.bubble.ui.theme.BubbleAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,6 +23,11 @@ class MainActivity : ComponentActivity() {
         val calendrierbutton = findViewById<Button>(R.id.calendrier_btn)
         calendrierbutton.setOnClickListener{
             val Intent = Intent(this,Calendrier::class.java)
+            startActivity(Intent)
+        }
+        val profilbutton = findViewById<Button>(R.id.profil_btn)
+        calendrierbutton.setOnClickListener{
+            val Intent = Intent(this,ProfileActivity::class.java)
             startActivity(Intent)
         }
     }

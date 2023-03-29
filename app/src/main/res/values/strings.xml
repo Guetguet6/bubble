@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BubbleApp</string>
+    <string name="default_name">Utilisateur</string>
 </resources>
