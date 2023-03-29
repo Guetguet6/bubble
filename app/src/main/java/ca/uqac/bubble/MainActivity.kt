@@ -2,6 +2,7 @@ package ca.uqac.bubble
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import ca.uqac.bubble.Calendrier.CalendrierActivity
 import androidx.activity.compose.setContent
@@ -57,7 +58,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun buttons(){
+    fun buttons() {
         val context = LocalContext.current;
 
 
@@ -69,4 +70,5 @@ class MainActivity : ComponentActivity() {
                 Text(text = "Santé")
             }
         }
+    }
 }
