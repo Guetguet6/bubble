@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission-group.STORAGE" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,17 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BubbleApp"
         tools:targetApi="31">
-        <activity
-            android:name=".sante.SanteActivity"
-            android:exported="false"
-            android:label="@string/title_activity_sante"
-            android:theme="@style/Theme.BubbleApp"
-            />
-        <activity
-            android:name=".Calendrier"
-            android:exported="false"
-            android:label="Calendrier"
-            android:theme="@style/Theme.BubbleApp" />
+
+        <!--Main Activity-->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -34,21 +23,50 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity
-            android:name=".sante.liste.CoherenceCardiaqueActivity"
-            android:exported="true"
-            android:label="@string/title_activity_cc"
-            android:theme="@style/Theme.BubbleApp">
 
-        </activity>
+        <!--Santé-->
         <activity
             android:name=".sante.SanteAdapter"
             android:theme="@style/Theme.BubbleApp"
             android:label="Sante Catégories"
             android:exported="true">
         </activity>
-    </application>
 
+        <activity
+            android:name=".sante.liste.CoherenceCardiaqueActivity"
+            android:exported="true"
+            android:label="@string/title_activity_cc"
+            android:theme="@style/Theme.BubbleApp">
+        </activity>
+
+
+        <!--Calendrier-->
+        <activity
+            android:name=".Calendrier.CalendrierActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".Calendrier.WeekViewActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".Calendrier.EventEditActivity"
+            android:exported="false">
+        </activity>
+
+        <!--Profile-->
+        <activity
+            android:name=".profil.ProfileActivity"
+            android:exported="false">
+        </activity>
+
+        <!--ToDoList-->
+        <activity
+            android:name=".ToDoListActivity"
+            android:exported="false"
+            android:label="@string/title_activity_to_do_list"
+            android:theme="@style/Theme.BubbleApp.NoActionBar" />
+
+    </application>
 </manifest>
