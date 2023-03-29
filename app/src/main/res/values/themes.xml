@@ -4,6 +4,16 @@
     <style name="Theme.BubbleApp" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/purple_700</item>
     </style>
+
+    <style name="Theme.BubbleApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.BubbleApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.BubbleApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <!-- Base application theme. -->
     <style name="Base.Theme.BubbleApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
