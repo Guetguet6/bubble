@@ -62,7 +62,7 @@
 
         <!--ToDoList-->
         <activity
-            android:name=".ToDoListActivity"
+            android:name=".todolist.ToDoListActivity"
             android:exported="false"
             android:label="@string/title_activity_to_do_list"
             android:theme="@style/Theme.BubbleApp.NoActionBar" />
@@ -70,7 +70,7 @@
 
         <!--Pomodoro-->
         <activity
-            android:name=".Pomodoro"
+            android:name=".pomodoro.Pomodoro"
             android:exported="false"
             android:theme="@style/Theme.BubbleApp">
         </activity>

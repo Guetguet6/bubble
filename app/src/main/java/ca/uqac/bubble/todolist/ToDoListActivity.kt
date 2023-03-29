@@ -1,4 +1,4 @@
-package ca.uqac.bubble
+package ca.uqac.bubble.todolist
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -9,9 +9,9 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import ca.uqac.bubble.R
 import ca.uqac.bubble.databinding.ActivityToDoListBinding
 import ca.uqac.bubble.databinding.PopupTacheBinding
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

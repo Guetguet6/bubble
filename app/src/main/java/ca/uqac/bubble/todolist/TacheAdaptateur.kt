@@ -1,9 +1,6 @@
-package ca.uqac.bubble
+package ca.uqac.bubble.todolist
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,19 +9,16 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.recyclerview.widget.RecyclerView
-import java.io.IOException
+import ca.uqac.bubble.R
 import java.time.LocalDate
 import java.time.Period
-import java.time.format.DateTimeFormatter
-import java.time.temporal.TemporalAmount
 
 
 class TacheAdaptateur(
     private var taches: MutableList<Tache>,
 
-) : RecyclerView.Adapter<TacheAdaptateur.TacheViewHolder>(){
+    ) : RecyclerView.Adapter<TacheAdaptateur.TacheViewHolder>(){
 
     class TacheViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var nomTache: TextView
