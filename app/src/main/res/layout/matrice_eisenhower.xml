@@ -8,40 +8,44 @@
 
     <Button
         android:id="@+id/buttonUI"
-        style="@android:style/Widget.Material.Light.Button"
-        android:layout_width="172dp"
-        android:layout_height="161dp"
+        style="@android:style/Widget.Material.Light.Button.Small"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:text="Urgent et important"
-        app:layout_constraintStart_toStartOf="@+id/buttonUN"
+        android:textSize="9sp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonNI"
         app:layout_constraintTop_toTopOf="@+id/buttonNI" />
 
     <Button
         android:id="@+id/buttonNI"
-        android:layout_width="172dp"
-        android:layout_height="161dp"
+        style="@android:style/Widget.Material.Light.Button.Small"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:text="non urgent et important"
+        android:textSize="9sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonUN"
-        app:layout_constraintStart_toStartOf="@+id/buttonNN" />
+        app:layout_constraintEnd_toEndOf="@+id/buttonNN" />
 
     <Button
         android:id="@+id/buttonNN"
-        style="@android:style/Widget.Material.Light.Button"
-        android:layout_width="172dp"
-        android:layout_height="161dp"
+        style="@android:style/Widget.Material.Light.Button.Small"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:text="non urgent et non important"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonUN"
-        app:layout_constraintStart_toEndOf="@+id/buttonUN" />
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonUN"
-        style="@android:style/Widget.Material.Light.Button"
-        android:layout_width="172dp"
-        android:layout_height="161dp"
+        style="@android:style/Widget.Material.Light.Button.Small"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:text="urgent et non important"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonNN"
+        app:layout_constraintEnd_toStartOf="@+id/buttonNN" />
 
     <TextView
         android:id="@+id/textView3"
@@ -49,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="Urgent"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonUI"
         app:layout_constraintEnd_toEndOf="@+id/buttonUI"
         app:layout_constraintStart_toStartOf="@+id/buttonUI" />
@@ -59,6 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="Non urgent"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonUI"
         app:layout_constraintEnd_toEndOf="@+id/buttonNI"
         app:layout_constraintStart_toEndOf="@+id/buttonUI" />
@@ -69,6 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="Important"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/buttonUI"
         app:layout_constraintEnd_toStartOf="@+id/buttonUI"
         app:layout_constraintTop_toTopOf="@+id/buttonUI" />
@@ -77,20 +84,20 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:text="Non important"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/buttonUN"
-        app:layout_constraintEnd_toStartOf="@+id/buttonUN"
+        app:layout_constraintEnd_toStartOf="@+id/buttonUI"
         app:layout_constraintTop_toBottomOf="@+id/buttonUI" />
 
     <TextView
         android:id="@+id/twChoix"
-        android:layout_width="210dp"
-        android:layout_height="30dp"
-        android:layout_margin="5dp"
+        android:layout_width="177dp"
+        android:layout_height="29dp"
         android:text="Vous avez choisi :"
-        app:layout_constraintEnd_toEndOf="@+id/buttonNN"
-        app:layout_constraintStart_toStartOf="@+id/buttonUI"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/buttonUN" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

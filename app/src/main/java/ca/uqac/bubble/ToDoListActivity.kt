@@ -1,6 +1,7 @@
 package ca.uqac.bubble
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ca.uqac.bubble.databinding.ActivityToDoListBinding
 import ca.uqac.bubble.databinding.PopupTacheBinding
 import org.w3c.dom.Text
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -28,10 +32,11 @@ class ToDoListActivity : AppCompatActivity() {
         binding = ActivityToDoListBinding.inflate(layoutInflater)
         bindingTache = PopupTacheBinding.inflate(layoutInflater)
         SHARED_PREFS = this.getSharedPreferences("listeTACHES", MODE_PRIVATE)
+
         val view = binding.root
         setContentView(view)
 
-        if(SHARED_PREFS.all.keys.isEmpty()){
+        if (SHARED_PREFS.all.keys.isEmpty()){
             tacheAdaptateur = TacheAdaptateur(mutableListOf())
         } else {
             var ids = getIds(SHARED_PREFS.all.keys)
@@ -47,14 +52,11 @@ class ToDoListActivity : AppCompatActivity() {
             ajouterTache(tacheAdaptateur)
         }
 
-
-
-        bindingTache.cDate.date = Calendar.getInstance().timeInMillis
-
         binding.bSupprimerTache.setOnClickListener {
             tacheAdaptateur.supprimerTachesFaites()
         }
     }
+
 
 
 
@@ -71,11 +73,20 @@ class ToDoListActivity : AppCompatActivity() {
             editor.remove("idCategorie$id")
             editor.apply()
 
+            var faite: Boolean = SHARED_PREFS.getBoolean("idFaite$id", false)
+            editor.remove("idFaite$id")
+            editor.apply()
+
+            var deadline: LocalDate = recupererDate(SHARED_PREFS.getString("idDate$id", LocalDate.now().format(
+                DateTimeFormatter.ofPattern("dd/MM/yyyy"))).toString())
+            editor.remove("idDate$id")
+            editor.apply()
+
             var urgenceTache: Int = SHARED_PREFS.getInt("idUrgence$id", 0)
             editor.remove("idUrgence$id")
             editor.apply()
 
-            taches.add(Tache(nomTache, categorieTache, urgence = urgenceTache))
+            taches.add(Tache(nomTache, categorieTache, faite, deadline, urgenceTache))
         }
 
         return taches
@@ -144,6 +155,28 @@ class ToDoListActivity : AppCompatActivity() {
             choisirUrgence(view)
         }
 
+        var cal = Calendar.getInstance()
+
+        val format = "dd/MM/yyyy"
+        val sdf = SimpleDateFormat(format, Locale.FRANCE)
+        var dateSetListener = DatePickerDialog.OnDateSetListener { _ , year, monthOfYear, dayOfMonth ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            view.findViewById<Button>(R.id.bDate).text = sdf.format(cal.time)
+        }
+        var year = cal.get(Calendar.YEAR)
+        var month = cal.get(Calendar.MONTH)
+        var day = cal.get(Calendar.DAY_OF_MONTH)
+        view.findViewById<Button>(R.id.bDate).text = sdf.format(cal.time)
+
+        var datePickerDialog = DatePickerDialog(this, dateSetListener, year, month, day)
+
+        view.findViewById<Button>(R.id.bDate).setOnClickListener {
+            datePickerDialog.show()
+        }
+
         val nomTache = view.findViewById<EditText>(R.id.etNomTache)
         val categorieTache = view.findViewById<EditText>(R.id.etCategorie)
         val urgence = view.findViewById<TextView>(R.id.twChoixUrgence)
@@ -155,10 +188,16 @@ class ToDoListActivity : AppCompatActivity() {
             dialog,_->
             val nom = nomTache.text.toString()
             val categorie = categorieTache.text.toString()
-            tacheAdaptateur.ajouterTache(Tache(nom, categorie, urgence = urgence.text.toString().toInt()))
-            tacheAdaptateur.notifyDataSetChanged()
-            Toast.makeText(this, "Tache ajoutée", Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
+            val date = view.findViewById<Button>(R.id.bDate).text.toString()
+            if (nom.isNotEmpty() && categorie.isNotEmpty()){
+                tacheAdaptateur.ajouterTache(Tache(nom, categorie, urgence = urgence.text.toString().toInt(), deadline = recupererDate(date)))
+                tacheAdaptateur.notifyDataSetChanged()
+                Toast.makeText(this, "Tache ajoutée", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            } else {
+                Toast.makeText(this, "Veuillez remplir tous les champs requis", Toast.LENGTH_SHORT).show()
+            }
+
         }
         ajouterDialogue.setNegativeButton("Annuler"){ dialog,_->
             dialog.dismiss()
@@ -167,18 +206,30 @@ class ToDoListActivity : AppCompatActivity() {
         ajouterDialogue.show()
     }
 
+    fun recupererDate(date: String): LocalDate {
+        var localDate: LocalDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+
+        return localDate
+    }
+
     fun stockerTaches(tacheAdaptateur: TacheAdaptateur) {
         var taches = tacheAdaptateur.recupererTaches()
         var editor = SHARED_PREFS.edit()
         var idNom: String
         var idCategorie: String
         var idUrgence: String
+        var idDate: String
+        var idFaite: String
 
         for(i in 0 until taches.size){
             idNom = "idNom$i"
             editor.putString(idNom, taches[i].titre)
             idCategorie = "idCategorie$i"
             editor.putString(idCategorie, taches[i].categorie)
+            idFaite = "idFaite$i"
+            editor.putBoolean(idFaite, taches[i].faite)
+            idDate = "idDate$i"
+            editor.putString(idDate, taches[i].deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
             idUrgence = "idUrgence$i"
             editor.putInt(idUrgence, taches[i].urgence)
         }
