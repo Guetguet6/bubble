@@ -41,4 +41,5 @@ fun BubbleAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composa
         shapes = Shapes,
         content = content
     )
+
 }

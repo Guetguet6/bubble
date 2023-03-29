@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo_app"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.BubbleApp"
@@ -24,6 +24,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--Santé-->
+        <activity
+            android:name=".sante.SanteAdapter"
+            android:theme="@style/Theme.BubbleApp"
+            android:label="Sante Catégories"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".sante.liste.CoherenceCardiaqueActivity"
+            android:exported="true"
+            android:label="@string/title_activity_cc"
+            android:theme="@style/Theme.BubbleApp">
+        </activity>
+
 
         <!--Calendrier-->
         <activity
