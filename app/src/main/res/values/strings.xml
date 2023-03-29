@@ -9,4 +9,11 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!--Profile-->
+    <string name="default_name">Utilisateur</string>
+    <string name="name_hint">Entrer votre nom</string>
+    <string name="save_button_text">Valider</string>
+    <string name="back">Précédent</string>
+    <string name="forward">Suivant</string>
 </resources>

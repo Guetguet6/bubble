@@ -11,14 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BubbleApp"
         tools:targetApi="31">
-        <activity
-            android:name=".ToDoListActivity"
-            android:exported="false"
-            android:label="@string/title_activity_to_do_list"
-            android:theme="@style/Theme.BubbleApp.NoActionBar" />
-        <activity
-            android:name=".Calendrier"
-            android:exported="false"/>
+
+        <!--Main Activity-->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,6 +24,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!--Calendrier-->
+        <activity
+            android:name=".Calendrier.CalendrierActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".Calendrier.WeekViewActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".Calendrier.EventEditActivity"
+            android:exported="false">
+        </activity>
+
+        <!--Profile-->
+        <activity
+            android:name=".profil.ProfileActivity"
+            android:exported="false">
+        </activity>
+
+        <!--ToDoList-->
+        <activity
+            android:name=".ToDoListActivity"
+            android:exported="false"
+            android:label="@string/title_activity_to_do_list"
+            android:theme="@style/Theme.BubbleApp.NoActionBar" />
+
+    </application>
 </manifest>
