@@ -17,7 +17,8 @@
             android:name=".sante.SanteActivity"
             android:exported="false"
             android:label="@string/title_activity_sante"
-            android:theme="@style/Theme.BubbleApp" />
+            android:theme="@style/Theme.BubbleApp"
+            />
         <activity
             android:name=".Calendrier"
             android:exported="false"
@@ -33,6 +34,20 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".sante.liste.CoherenceCardiaqueActivity"
+            android:exported="true"
+            android:label="@string/title_activity_cc"
+            android:theme="@style/Theme.BubbleApp">
+
+        </activity>
+        <activity
+            android:name=".sante.SanteAdapter"
+            android:theme="@style/Theme.BubbleApp"
+            android:label="Sante Catégories"
+            android:exported="true">
         </activity>
     </application>
 
