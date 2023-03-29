@@ -10,7 +10,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
@@ -21,6 +24,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -42,8 +46,10 @@ class SanteAdapter : ComponentActivity(){
         setContent {
             BubbleAppTheme {
                 Surface{
-                    Text(text = "Hello World")
+                    Column {
+                    Text(text = "Sante")
                     Content()
+                    }
                 }
             }
         }
@@ -72,15 +78,17 @@ class SanteAdapter : ComponentActivity(){
                     startActivity(Intent(this, Sante.classPath))
                 }
             },
-            enabled = Sante.classPath != null
+            enabled = Sante.classPath != null,
+            modifier = Modifier
+                .padding(20.dp)
         ){
             Column {
                 Image(
                     painter = painterResource(id = Sante.imgagePath),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(80.dp)
+                    modifier = Modifier.height(100.dp),
+                    alignment = Alignment.Center
                 )
                 Text(text = Sante.title, style = typography.h6)
                 Text(text = Sante.description, style = typography.caption)
