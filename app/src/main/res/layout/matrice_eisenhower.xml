@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@android:style/Widget.Material.Light.Button"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/buttonUI"
+        style="@android:style/Widget.Material.Light.Button"
+        android:layout_width="172dp"
+        android:layout_height="161dp"
+        android:text="Urgent et important"
+        app:layout_constraintStart_toStartOf="@+id/buttonUN"
+        app:layout_constraintTop_toTopOf="@+id/buttonNI" />
+
+    <Button
+        android:id="@+id/buttonNI"
+        android:layout_width="172dp"
+        android:layout_height="161dp"
+        android:text="non urgent et important"
+        app:layout_constraintBottom_toTopOf="@+id/buttonUN"
+        app:layout_constraintStart_toStartOf="@+id/buttonNN" />
+
+    <Button
+        android:id="@+id/buttonNN"
+        style="@android:style/Widget.Material.Light.Button"
+        android:layout_width="172dp"
+        android:layout_height="161dp"
+        android:text="non urgent et non important"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonUN"
+        app:layout_constraintStart_toEndOf="@+id/buttonUN" />
+
+    <Button
+        android:id="@+id/buttonUN"
+        style="@android:style/Widget.Material.Light.Button"
+        android:layout_width="172dp"
+        android:layout_height="161dp"
+        android:text="urgent et non important"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Urgent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonUI"
+        app:layout_constraintEnd_toEndOf="@+id/buttonUI"
+        app:layout_constraintStart_toStartOf="@+id/buttonUI" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Non urgent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonUI"
+        app:layout_constraintEnd_toEndOf="@+id/buttonNI"
+        app:layout_constraintStart_toEndOf="@+id/buttonUI" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Important"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonUI"
+        app:layout_constraintEnd_toStartOf="@+id/buttonUI"
+        app:layout_constraintTop_toTopOf="@+id/buttonUI" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="Non important"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonUN"
+        app:layout_constraintEnd_toStartOf="@+id/buttonUN"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUI" />
+
+    <TextView
+        android:id="@+id/twChoix"
+        android:layout_width="210dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:text="Vous avez choisi :"
+        app:layout_constraintEnd_toEndOf="@+id/buttonNN"
+        app:layout_constraintStart_toStartOf="@+id/buttonUI"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUN" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

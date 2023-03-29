@@ -18,6 +18,7 @@
         android:id="@+id/bAjouterTache"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_default"
         android:text="Ajouter une tâche"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -26,6 +27,7 @@
         android:id="@+id/bSupprimerTache"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_default"
         android:text="Supprimer tâches faites"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -4,66 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#B3A2A2">
+    android:background="@color/teal_200">
 
 
     <EditText
         android:id="@+id/etNomTache"
+        style="@android:style/Widget.DeviceDefault.Light.EditText"
         android:layout_width="166dp"
         android:layout_height="53dp"
-        android:text="Tâche à faire"
-        android:focusableInTouchMode="true"
         android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
         android:id="@+id/etCategorie"
+        style="@android:style/Widget.DeviceDefault.Light.EditText"
         android:layout_width="114dp"
         android:layout_height="54dp"
-        android:focusableInTouchMode="true"
         android:focusable="true"
-        android:text="Catégorie"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:focusableInTouchMode="true"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/etNomTache"
+        app:layout_constraintStart_toStartOf="@+id/etNomTache"
         app:layout_constraintTop_toBottomOf="@+id/etNomTache" />
 
-
-    <EditText
-        android:id="@+id/etDate"
+    <CalendarView
+        android:id="@+id/cDate"
+        style="@android:style/Widget.Material.Light.CalendarView"
         android:layout_width="152dp"
         android:layout_height="52dp"
-        android:ems="10"
-        android:focusableInTouchMode="true"
         android:focusable="true"
-        android:inputType="date"
-        android:text="Date limite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:focusableInTouchMode="true"
+        app:layout_constraintEnd_toEndOf="@+id/etCategorie"
+        app:layout_constraintStart_toStartOf="@+id/etCategorie"
         app:layout_constraintTop_toBottomOf="@+id/etCategorie" />
 
-
-    <SeekBar
-        android:id="@+id/sbCriticite"
-        android:layout_width="127dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="4dp"
-        android:max="10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDate" />
-
-    <Button
-        android:id="@+id/bValiderTache"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Valider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sbCriticite" />
 
     <TextView
         android:id="@+id/textView4"
@@ -78,35 +58,45 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:text="Catégorie"
-        app:layout_constraintBottom_toBottomOf="@+id/etCategorie"
-        app:layout_constraintEnd_toStartOf="@+id/etCategorie"
-        app:layout_constraintTop_toBottomOf="@+id/etNomTache" />
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
         android:text="Date limite"
-        app:layout_constraintBottom_toBottomOf="@+id/etDate"
-        app:layout_constraintEnd_toStartOf="@+id/etDate"
-        app:layout_constraintTop_toBottomOf="@+id/etCategorie" />
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/cDate" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Urgence"
-        app:layout_constraintBottom_toBottomOf="@+id/sbCriticite"
-        app:layout_constraintEnd_toStartOf="@+id/sbCriticite"
-        app:layout_constraintTop_toBottomOf="@+id/etDate" />
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/cDate" />
 
-    <TextView
-        android:id="@+id/twUrgenceTache"
+    <Button
+        android:id="@+id/bUrgence"
+        style="@android:style/Widget.Material.Light.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        app:layout_constraintBottom_toBottomOf="@+id/sbCriticite"
-        app:layout_constraintStart_toEndOf="@+id/sbCriticite"
-        app:layout_constraintTop_toTopOf="@+id/sbCriticite" />
+        android:text="Choisir"
+        app:layout_constraintEnd_toEndOf="@+id/cDate"
+        app:layout_constraintStart_toStartOf="@+id/cDate"
+        app:layout_constraintTop_toBottomOf="@+id/cDate" />
+
+    <TextView
+        android:id="@+id/twChoixUrgence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/bUrgence"
+        app:layout_constraintTop_toBottomOf="@+id/bUrgence" />
 </androidx.constraintlayout.widget.ConstraintLayout>
