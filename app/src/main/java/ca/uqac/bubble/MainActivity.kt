@@ -24,5 +24,11 @@ class MainActivity : ComponentActivity() {
             val Intent = Intent(this,Calendrier::class.java)
             startActivity(Intent)
         }
+
+        val pomodoroButton = findViewById<Button>(R.id.pomodoro_btn)
+        pomodoroButton.setOnClickListener {
+            val intent = Intent(this, Pomodoro::class.java)
+            startActivity(intent)
+        }
     }
 }

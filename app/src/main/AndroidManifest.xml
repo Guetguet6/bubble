@@ -26,6 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Pomodoro"
+            android:exported="false"
+            android:theme="@style/Theme.BubbleApp">
+        </activity>
     </application>
 
 </manifest>
