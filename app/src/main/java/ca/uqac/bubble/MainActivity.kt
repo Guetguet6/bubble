@@ -27,10 +27,17 @@ class MainActivity : ComponentActivity() {
                 CalendrierActivity::class.java)
             startActivity(Intent)
         }
+
         val profilbutton = findViewById<Button>(R.id.profil_btn)
         profilbutton.setOnClickListener{
             val Intent = Intent(this,ProfileActivity::class.java)
             startActivity(Intent)
+        }
+
+        val toDoListButton = findViewById<Button>(R.id.toDoList_btn)
+        toDoListButton.setOnClickListener{
+            val intent = Intent(this,ToDoListActivity::class.java)
+            startActivity(intent)
         }
     }
 }
