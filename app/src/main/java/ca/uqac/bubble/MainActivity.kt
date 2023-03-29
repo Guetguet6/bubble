@@ -5,6 +5,16 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
 import ca.uqac.bubble.Calendrier.CalendrierActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import ca.uqac.bubble.profil.ProfileActivity
+import ca.uqac.bubble.ui.theme.BubbleAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +27,10 @@ class MainActivity : ComponentActivity() {
                 CalendrierActivity::class.java)
             startActivity(Intent)
         }
-
-
+        val profilbutton = findViewById<Button>(R.id.profil_btn)
+        profilbutton.setOnClickListener{
+            val Intent = Intent(this,ProfileActivity::class.java)
+            startActivity(Intent)
+        }
     }
 }
