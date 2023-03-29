@@ -110,27 +110,33 @@ class ToDoListActivity : AppCompatActivity() {
         val view = inflater.inflate(R.layout.matrice_eisenhower, null)
 
         var twChoixUrgence = parent.findViewById<TextView>(R.id.twChoixUrgence)
+        var bChoix = parent.findViewById<Button>(R.id.bUrgence)
         var choix = view.findViewById<TextView>(R.id.twChoix)
 
         val bUI = view.findViewById<Button>(R.id.buttonUI)
         bUI.setOnClickListener {
             twChoixUrgence.text = "4"
             choix.text = "Vous avez choisi : Urgent et Important"
+            bChoix.text = "Urgent et Important"
+
         }
         val bUN = view.findViewById<Button>(R.id.buttonUN)
         bUN.setOnClickListener {
             twChoixUrgence.text = "3"
             choix.text = "Vous avez choisi : Urgent et Non Important"
+            bChoix.text = "Urgent et Non Important"
         }
         val bNI = view.findViewById<Button>(R.id.buttonNI)
         bNI.setOnClickListener {
             twChoixUrgence.text = "2"
             choix.text = "Vous avez choisi : Non Urgent et Important"
+            bChoix.text = "Non Urgent et Important"
         }
         val bNN = view.findViewById<Button>(R.id.buttonNN)
         bNN.setOnClickListener {
             twChoixUrgence.text = "1"
             choix.text = "Vous avez choisi : Non Urgent et Non Important"
+            bChoix.text = "Non Urgent et Non Important"
         }
 
         val ajouterDialogue = AlertDialog.Builder(this)

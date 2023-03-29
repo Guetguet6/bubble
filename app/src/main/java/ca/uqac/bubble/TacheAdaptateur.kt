@@ -15,7 +15,10 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.recyclerview.widget.RecyclerView
 import java.io.IOException
+import java.time.LocalDate
+import java.time.Period
 import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAmount
 
 
 class TacheAdaptateur(
@@ -87,8 +90,8 @@ class TacheAdaptateur(
         var tacheActuelle: Tache = taches[position]
         holder.nomTache.text = tacheActuelle.titre
         holder.categorieTache.text = tacheActuelle.categorie
-        var date = tacheActuelle.deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-        holder.dateTache.text = "Date limite : $date"
+        var tempsRestant = getTempsRestant(tacheActuelle.deadline)
+        holder.dateTache.text = tempsRestant
         holder.boutonTacheFaite.isChecked = tacheActuelle.faite
         var color = couleurTache(tacheActuelle.urgence)
         holder.itemView.setBackgroundColor(color)
@@ -102,6 +105,48 @@ class TacheAdaptateur(
         holder.boutonSupprimerTache.setOnClickListener {
             supprimerTache(tacheActuelle, position)
         }
+    }
+
+    private fun getTempsRestant(deadline: LocalDate): String {
+        val now = LocalDate.now()
+        val period = Period.between(now, deadline)
+
+        var tempsRestant = "Temps restant : "
+        val ans = period.years
+        val mois = period.months
+        val jours = period.days
+
+        if (ans != 0) {
+            if (ans == 1) {
+                tempsRestant += "$ans an"
+            } else {
+                tempsRestant += "$ans ans"
+            }
+        }
+        if (mois != 0) {
+            if (ans != 0) {
+                tempsRestant += " et $mois mois"
+            } else {
+                tempsRestant += "$mois mois"
+            }
+        }
+        if (jours != 0) {
+            if (mois != 0 || ans != 0) {
+                if (jours == 1) {
+                    tempsRestant += " et $jours jour"
+                } else {
+                    tempsRestant += " et $jours jours"
+                }
+            } else {
+                if (jours == 1) {
+                    tempsRestant += "$jours jour"
+                } else {
+                    tempsRestant += "$jours jours"
+                }
+            }
+        }
+
+        return tempsRestant
     }
 
     private fun couleurTache(urgence: Int): Int {

@@ -76,7 +76,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Urgence"
-        app:layout_constraintBottom_toBottomOf="@+id/bUrgence"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/bDate" />
 
@@ -88,7 +87,7 @@
         android:text="Choisir"
         app:layout_constraintEnd_toEndOf="@+id/bDate"
         app:layout_constraintStart_toStartOf="@+id/bDate"
-        app:layout_constraintTop_toBottomOf="@+id/bDate" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/twChoixUrgence"
