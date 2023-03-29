@@ -40,7 +40,6 @@
             android:theme="@style/Theme.BubbleApp">
         </activity>
 
-
         <!--Calendrier-->
         <activity
             android:name=".Calendrier.CalendrierActivity"
@@ -68,5 +67,12 @@
             android:label="@string/title_activity_to_do_list"
             android:theme="@style/Theme.BubbleApp.NoActionBar" />
 
+
+        <!--Pomodoro-->
+        <activity
+            android:name=".Pomodoro"
+            android:exported="false"
+            android:theme="@style/Theme.BubbleApp">
+        </activity>
     </application>
 </manifest>

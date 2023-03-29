@@ -67,6 +67,12 @@ class MainActivity : ComponentActivity() {
         toDoListButton.setOnClickListener {
             val intent = Intent(this, ToDoListActivity::class.java)
             startActivity(intent)
+        }
+
+        val pomodoroButton = findViewById<Button>(R.id.pomodoro_btn)
+        pomodoroButton.setOnClickListener {
+            val intent = Intent(this, Pomodoro::class.java)
+            startActivity(intent)
         }*/
     }
 
