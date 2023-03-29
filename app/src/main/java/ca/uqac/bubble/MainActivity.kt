@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
+import ca.uqac.bubble.Calendrier.CalendrierActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
@@ -22,7 +23,8 @@ class MainActivity : ComponentActivity() {
 
         val calendrierbutton = findViewById<Button>(R.id.calendrier_btn)
         calendrierbutton.setOnClickListener{
-            val Intent = Intent(this,Calendrier::class.java)
+            val Intent = Intent(this,
+                CalendrierActivity::class.java)
             startActivity(Intent)
         }
         val profilbutton = findViewById<Button>(R.id.profil_btn)
@@ -31,6 +33,4 @@ class MainActivity : ComponentActivity() {
             startActivity(Intent)
         }
     }
-
-
 }

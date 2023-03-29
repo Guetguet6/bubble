@@ -3,4 +3,6 @@
     <string name="default_name">Utilisateur</string>
     <string name="name_hint">Entrer votre nom</string>
     <string name="save_button_text">Valider</string>
+    <string name="back">Précédent</string>
+    <string name="forward">Suivant</string>
 </resources>
