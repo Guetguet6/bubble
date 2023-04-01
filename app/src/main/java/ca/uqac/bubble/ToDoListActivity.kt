@@ -5,18 +5,19 @@ import android.app.DatePickerDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ca.uqac.bubble.databinding.ActivityToDoListBinding
 import ca.uqac.bubble.databinding.PopupTacheBinding
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class ToDoListActivity : AppCompatActivity() {
 
@@ -24,7 +25,6 @@ class ToDoListActivity : AppCompatActivity() {
     private lateinit var bindingTache: PopupTacheBinding
     private lateinit var SHARED_PREFS: SharedPreferences
     private lateinit var tacheAdaptateur: TacheAdaptateur
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +36,21 @@ class ToDoListActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        val toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayShowHomeEnabled(true)
+        actionBar?.title = "Liste des tâches"
+
+
+
         if (SHARED_PREFS.all.keys.isEmpty()){
-            tacheAdaptateur = TacheAdaptateur(mutableListOf())
+            tacheAdaptateur = TacheAdaptateur(mutableListOf(), SHARED_PREFS)
         } else {
             var ids = getIds(SHARED_PREFS.all.keys)
             var listeTaches = recupTaches(ids)
-            tacheAdaptateur = TacheAdaptateur(listeTaches)
+            tacheAdaptateur = TacheAdaptateur(listeTaches, SHARED_PREFS)
         }
 
         binding.toDoList.adapter = tacheAdaptateur
@@ -57,36 +66,43 @@ class ToDoListActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.itemTitreC -> tacheAdaptateur.triTitreCroissant()
+            R.id.itemTitreD -> tacheAdaptateur.triTitreDecroissant()
+            R.id.itemCatC -> tacheAdaptateur.triCategorieCroissante()
+            R.id.itemCatD -> tacheAdaptateur.triCategorieDecroissante()
+            R.id.itemUrgenceC -> tacheAdaptateur.triUrgenceCroissante()
+            R.id.itemUrgenceD -> tacheAdaptateur.triUrgenceDecroissante()
+            R.id.itemDateC -> tacheAdaptateur.triDeadlineCroissante()
+            R.id.itemDateD -> tacheAdaptateur.triDeadlineDecroissante()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 
 
     private fun recupTaches(ids: ArrayList<Int>): MutableList<Tache> {
         var taches = mutableListOf<Tache>()
-        var editor = SHARED_PREFS.edit()
 
         for(id in ids){
-            var nomTache: String = SHARED_PREFS.getString("idNom$id", "").toString()
-            editor.remove("idNom$id")
-            editor.apply()
+            val nomTache: String = SHARED_PREFS.getString("idNom$id", "").toString()
 
-            var categorieTache: String = SHARED_PREFS.getString("idCategorie$id", "").toString()
-            editor.remove("idCategorie$id")
-            editor.apply()
+            val categorieTache: String = SHARED_PREFS.getString("idCategorie$id", "").toString()
 
-            var faite: Boolean = SHARED_PREFS.getBoolean("idFaite$id", false)
-            editor.remove("idFaite$id")
-            editor.apply()
+            val faite: Boolean = SHARED_PREFS.getBoolean("idFaite$id", false)
 
-            var deadline: LocalDate = recupererDate(SHARED_PREFS.getString("idDate$id", LocalDate.now().format(
+            val deadline: LocalDate = recupererDate(SHARED_PREFS.getString("idDate$id", LocalDate.now().format(
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"))).toString())
-            editor.remove("idDate$id")
-            editor.apply()
 
-            var urgenceTache: Int = SHARED_PREFS.getInt("idUrgence$id", 0)
-            editor.remove("idUrgence$id")
-            editor.apply()
+            val urgenceTache: Int = SHARED_PREFS.getInt("idUrgence$id", 0)
 
-            taches.add(Tache(nomTache, categorieTache, faite, deadline, urgenceTache))
+            taches.add(Tache(titre = nomTache, categorie = categorieTache, faite = faite, deadline = deadline, urgence = urgenceTache))
         }
 
         return taches
@@ -100,7 +116,6 @@ class ToDoListActivity : AppCompatActivity() {
                 ids.add(key.substring(5).toInt())
             }
         }
-
         return ids
     }
 
@@ -157,6 +172,8 @@ class ToDoListActivity : AppCompatActivity() {
         val inflater = LayoutInflater.from(this)
         val view = inflater.inflate(R.layout.popup_tache, null)
 
+        view.findViewById<TextView>(R.id.twChoixUrgence).text = "0"
+
         view.findViewById<Button>(R.id.bUrgence).setOnClickListener {
             choisirUrgence(view)
         }
@@ -196,7 +213,9 @@ class ToDoListActivity : AppCompatActivity() {
             val categorie = categorieTache.text.toString()
             val date = view.findViewById<Button>(R.id.bDate).text.toString()
             if (nom.isNotEmpty() && categorie.isNotEmpty()){
-                tacheAdaptateur.ajouterTache(Tache(nom, categorie, urgence = urgence.text.toString().toInt(), deadline = recupererDate(date)))
+                val tache = Tache(titre = nom, categorie = categorie, urgence = urgence.text.toString().toInt(), deadline = recupererDate(date))
+                tacheAdaptateur.ajouterTache(tache)
+                stockerTacheSharedPreferences(tache)
                 tacheAdaptateur.notifyDataSetChanged()
                 Toast.makeText(this, "Tache ajoutée", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
@@ -218,33 +237,22 @@ class ToDoListActivity : AppCompatActivity() {
         return localDate
     }
 
-    fun stockerTaches(tacheAdaptateur: TacheAdaptateur) {
-        var taches = tacheAdaptateur.recupererTaches()
-        var editor = SHARED_PREFS.edit()
-        var idNom: String
-        var idCategorie: String
-        var idUrgence: String
-        var idDate: String
-        var idFaite: String
-
-        for(i in 0 until taches.size){
-            idNom = "idNom$i"
-            editor.putString(idNom, taches[i].titre)
-            idCategorie = "idCategorie$i"
-            editor.putString(idCategorie, taches[i].categorie)
-            idFaite = "idFaite$i"
-            editor.putBoolean(idFaite, taches[i].faite)
-            idDate = "idDate$i"
-            editor.putString(idDate, taches[i].deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-            idUrgence = "idUrgence$i"
-            editor.putInt(idUrgence, taches[i].urgence)
-        }
+    fun stockerTacheSharedPreferences(tache: Tache) {
+        val editor = SHARED_PREFS.edit()
+        val id = tache.id
+        val idNom = "idNom$id"
+        editor.putString(idNom, tache.titre)
+        val idCategorie = "idCategorie$id"
+        editor.putString(idCategorie, tache.categorie)
+        val idFaite = "idFaite$id"
+        editor.putBoolean(idFaite, tache.faite)
+        val idDate = "idDate$id"
+        editor.putString(idDate, tache.deadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+        val idUrgence = "idUrgence$id"
+        editor.putInt(idUrgence, tache.urgence)
 
         editor.apply()
     }
 
-    override fun onPause() {
-        stockerTaches(tacheAdaptateur)
-        super.onPause()
-    }
+
 }

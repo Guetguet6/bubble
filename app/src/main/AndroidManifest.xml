@@ -66,7 +66,11 @@
             android:name=".ToDoListActivity"
             android:exported="false"
             android:label="@string/title_activity_to_do_list"
-            android:theme="@style/Theme.BubbleApp.NoActionBar" />
+            android:theme="@style/Theme.BubbleApp.NoActionBar"
+            > <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ToDoListActivity" />
+        </activity>
 
     </application>
 </manifest>
