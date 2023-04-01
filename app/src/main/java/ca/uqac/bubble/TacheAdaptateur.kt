@@ -1,18 +1,18 @@
 package ca.uqac.bubble
 
+import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.SharedPreferences
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
-import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class TacheAdaptateur(
@@ -133,8 +133,7 @@ class TacheAdaptateur(
 
     override fun onBindViewHolder(holder: TacheViewHolder, position: Int) {
         var tacheActuelle: Tache = taches[position]
-        var tmp = tacheActuelle.id.toString() + " " + tacheActuelle.titre
-        holder.nomTache.text = tmp
+        holder.nomTache.text = tacheActuelle.titre
         holder.categorieTache.text = tacheActuelle.categorie
         var tempsRestant = getTempsRestant(tacheActuelle.deadline)
         holder.dateTache.text = tempsRestant
@@ -149,24 +148,29 @@ class TacheAdaptateur(
         }
 
         holder.boutonSupprimerTache.setOnClickListener {
-            val id = tacheActuelle.id
             supprimerTache(tacheActuelle, position)
-
-            val editor = SHARED_PREFS.edit()
-            val idNom = "idNom$id"
-            editor.remove(idNom)
-            val idCategorie = "idCategorie$id"
-            editor.remove(idCategorie)
-            val idFaite = "idFaite$id"
-            editor.remove(idFaite)
-            val idDate = "idDate$id"
-            editor.remove(idDate)
-            val idUrgence = "idUrgence$id"
-            editor.remove(idUrgence)
-            editor.apply()
-
+            supprimerTacheSharedPreferences(tacheActuelle)
         }
+
     }
+
+    fun supprimerTacheSharedPreferences(tache: Tache) {
+        val id = tache.id
+
+        val editor = SHARED_PREFS.edit()
+        val idNom = "idNom$id"
+        editor.remove(idNom)
+        val idCategorie = "idCategorie$id"
+        editor.remove(idCategorie)
+        val idFaite = "idFaite$id"
+        editor.remove(idFaite)
+        val idDate = "idDate$id"
+        editor.remove(idDate)
+        val idUrgence = "idUrgence$id"
+        editor.remove(idUrgence)
+        editor.apply()
+    }
+
 
     private fun getTempsRestant(deadline: LocalDate): String {
         val now = LocalDate.now()
@@ -231,6 +235,10 @@ class TacheAdaptateur(
 
     override fun getItemCount(): Int {
         return taches.size
+    }
+
+    fun tacheAt(position: Int): Tache {
+        return taches[position]
     }
 
 

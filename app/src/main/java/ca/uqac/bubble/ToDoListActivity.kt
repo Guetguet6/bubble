@@ -2,15 +2,16 @@ package ca.uqac.bubble
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
+import android.view.GestureDetector.SimpleOnGestureListener
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import ca.uqac.bubble.databinding.ActivityToDoListBinding
 import ca.uqac.bubble.databinding.PopupTacheBinding
 import java.text.SimpleDateFormat
@@ -64,6 +65,96 @@ class ToDoListActivity : AppCompatActivity() {
         binding.bSupprimerTache.setOnClickListener {
             tacheAdaptateur.supprimerTachesFaites()
         }
+
+
+        var recyclerView = binding.toDoList
+        recyclerView.addOnItemTouchListener(
+            RecyclerTouchListener(this,
+                recyclerView, object : ClickListener {
+                    override fun onClick(view: View?, position: Int) {
+                    }
+
+                    override fun onLongClick(view: View?, position: Int) {
+                        val inflater = LayoutInflater.from(this@ToDoListActivity)
+                        val view = inflater.inflate(R.layout.popup_tache, null)
+                        val tache = tacheAdaptateur.tacheAt(position)
+
+                        view.findViewById<TextView>(R.id.twAction).text = "Modification de la tâche"
+
+                        view.findViewById<TextView>(R.id.twChoixUrgence).text = tache.urgence.toString()
+
+                        view.findViewById<Button>(R.id.bUrgence).setOnClickListener {
+                            choisirUrgence(view)
+                        }
+
+                        var cal = Calendar.getInstance()
+
+                        val format = "dd/MM/yyyy"
+                        val sdf = SimpleDateFormat(format, Locale.FRANCE)
+                        var dateSetListener = DatePickerDialog.OnDateSetListener { _ , year, monthOfYear, dayOfMonth ->
+                            cal.set(Calendar.YEAR, year)
+                            cal.set(Calendar.MONTH, monthOfYear)
+                            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                            view.findViewById<Button>(R.id.bDate).text = sdf.format(cal.time)
+                        }
+                        var year = cal.get(Calendar.YEAR)
+                        var month = cal.get(Calendar.MONTH)
+                        var day = cal.get(Calendar.DAY_OF_MONTH)
+                        view.findViewById<Button>(R.id.bDate).text = sdf.format(cal.time)
+
+                        var datePickerDialog = DatePickerDialog(this@ToDoListActivity, dateSetListener, year, month, day)
+
+                        view.findViewById<Button>(R.id.bDate).setOnClickListener {
+                            datePickerDialog.show()
+                        }
+
+                        val nomTache = view.findViewById<EditText>(R.id.etNomTache)
+                        nomTache.setText(tache.titre)
+                        val categorieTache = view.findViewById<EditText>(R.id.etCategorie)
+                        categorieTache.setText(tache.categorie)
+                        val urgence = view.findViewById<TextView>(R.id.twChoixUrgence)
+                        when (tache.urgence){
+                            0 -> urgence.setText("Pas d'urgence donnée")
+                            1 -> urgence.setText("NON URGENT ET NON IMPORTANT")
+                            2 -> urgence.setText("NON URGENT ET IMPORTANT")
+                            3 -> urgence.setText("URGENT ET NON IMPORTANT")
+                            4 -> urgence.setText("URGENT ET IMPORTANT")
+                        }
+
+                        val ajouterDialogue = AlertDialog.Builder(this@ToDoListActivity)
+
+                        ajouterDialogue.setView(view)
+                        ajouterDialogue.setPositiveButton("Valider"){
+                                dialog,_->
+                            val nom = nomTache.text.toString()
+                            val categorie = categorieTache.text.toString()
+                            val date = view.findViewById<Button>(R.id.bDate).text.toString()
+                            if (nom.isNotEmpty() && categorie.isNotEmpty()){
+                                tache.titre = nom
+                                tache.categorie = categorie
+                                tache.deadline = recupererDate(date)
+                                tache.urgence = urgence.text.toString().toInt()
+                                tacheAdaptateur.supprimerTacheSharedPreferences(tache)
+                                stockerTacheSharedPreferences(tache)
+                                tacheAdaptateur.notifyItemChanged(position)
+                                Toast.makeText(this@ToDoListActivity, "Tache modifiée", Toast.LENGTH_SHORT).show()
+                                dialog.dismiss()
+                            } else {
+                                Toast.makeText(this@ToDoListActivity, "Veuillez remplir tous les champs requis", Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+                        ajouterDialogue.setNegativeButton("Annuler"){ dialog,_->
+                            dialog.dismiss()
+                        }
+                        ajouterDialogue.create()
+                        ajouterDialogue.show()
+                    }
+                })
+        )
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -253,6 +344,46 @@ class ToDoListActivity : AppCompatActivity() {
 
         editor.apply()
     }
+}
 
+interface ClickListener {
+    fun onClick(view: View?, position: Int)
+    fun onLongClick(view: View?, position: Int)
+}
 
+internal class RecyclerTouchListener(
+    context: Context?,
+    recycleView: RecyclerView,
+    clicklistener: ClickListener?
+) :
+    OnItemTouchListener {
+    private val clicklistener: ClickListener?
+    private val gestureDetector: GestureDetector
+
+    init {
+        this.clicklistener = clicklistener
+        gestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
+            override fun onSingleTapUp(e: MotionEvent): Boolean {
+                return true
+            }
+
+            override fun onLongPress(e: MotionEvent) {
+                val child = recycleView.findChildViewUnder(e.x, e.y)
+                if (child != null && clicklistener != null) {
+                    clicklistener.onLongClick(child, recycleView.getChildAdapterPosition(child))
+                }
+            }
+        })
+    }
+
+    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+        val child = rv.findChildViewUnder(e.x, e.y)
+        if (child != null && clicklistener != null && gestureDetector.onTouchEvent(e)) {
+            clicklistener?.onClick(child, rv.getChildAdapterPosition(child))
+        }
+        return false
+    }
+
+    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+    override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
 }
