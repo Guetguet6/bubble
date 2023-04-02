@@ -2,7 +2,6 @@ package ca.uqac.bubble
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.app.SearchManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -73,6 +72,15 @@ class ToDoListActivity : AppCompatActivity() {
 
 
         var recyclerView = binding.toDoList
+        recyclerView.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            if (bottom < oldBottom) {
+                recyclerView.postDelayed({
+                    recyclerView.smoothScrollToPosition(
+                        0
+                    )
+                }, 100)
+            }
+        }
         recyclerView.addOnItemTouchListener(
             RecyclerTouchListener(this,
                 recyclerView, object : ClickListener {
@@ -173,6 +181,7 @@ class ToDoListActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
+                tacheAdaptateur.filter.filter(query)
                 return false
             }
         })
