@@ -2,13 +2,18 @@ package ca.uqac.bubble
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.SearchManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
@@ -159,7 +164,19 @@ class ToDoListActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar, menu)
-        return super.onCreateOptionsMenu(menu)
+        val item = menu?.findItem(R.id.action_search)
+        val searchView = item?.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                tacheAdaptateur.filter.filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                return false
+            }
+        })
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -172,9 +189,12 @@ class ToDoListActivity : AppCompatActivity() {
             R.id.itemUrgenceD -> tacheAdaptateur.triUrgenceDecroissante()
             R.id.itemDateC -> tacheAdaptateur.triDeadlineCroissante()
             R.id.itemDateD -> tacheAdaptateur.triDeadlineDecroissante()
+            R.id.action_search -> return true
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 
 
 

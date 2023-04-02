@@ -1,7 +1,5 @@
 package ca.uqac.bubble
 
-import android.app.AlertDialog
-import android.app.DatePickerDialog
 import android.content.SharedPreferences
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
@@ -9,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
 import java.util.*
@@ -18,8 +15,13 @@ import java.util.*
 class TacheAdaptateur(
     private var taches: MutableList<Tache>,
     var SHARED_PREFS: SharedPreferences,
+    private var tachesFiltrees: MutableList<Tache> = mutableListOf(),
 
-    ) : RecyclerView.Adapter<TacheAdaptateur.TacheViewHolder>(){
+    ) : RecyclerView.Adapter<TacheAdaptateur.TacheViewHolder>(), Filterable {
+
+    init {
+        tachesFiltrees = taches
+    }
 
     class TacheViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var nomTache: TextView
@@ -132,7 +134,7 @@ class TacheAdaptateur(
     }
 
     override fun onBindViewHolder(holder: TacheViewHolder, position: Int) {
-        var tacheActuelle: Tache = taches[position]
+        var tacheActuelle: Tache = tachesFiltrees[position]
         holder.nomTache.text = tacheActuelle.titre
         holder.categorieTache.text = tacheActuelle.categorie
         var tempsRestant = getTempsRestant(tacheActuelle.deadline)
@@ -234,11 +236,38 @@ class TacheAdaptateur(
     }
 
     override fun getItemCount(): Int {
-        return taches.size
+        return tachesFiltrees.size
     }
 
     fun tacheAt(position: Int): Tache {
         return taches[position]
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence): FilterResults {
+                val charString = constraint.toString()
+                if (charString.isEmpty()) {
+                    tachesFiltrees = taches
+                } else {
+                    var listeFiltree = ArrayList<Tache>()
+                    for (tache in taches) {
+                        if (tache.titre.lowercase().contains(charString)) {
+                            listeFiltree.add(tache)
+                        }
+                    }
+                    tachesFiltrees = listeFiltree
+                }
+                val filterResults = FilterResults()
+                filterResults.values = tachesFiltrees
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults) {
+                tachesFiltrees = results.values as MutableList<Tache>
+                notifyDataSetChanged()
+            }
+        }
     }
 
 
