@@ -9,20 +9,46 @@
         android:id="@+id/time_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00:00:00"
         android:textSize="36sp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/start_stop_button"
+        app:layout_constraintBottom_toTopOf="@id/start_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.5"/>
 
     <Button
-        android:id="@+id/start_stop_button"
+        android:text="Start"
+        android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
+        app:layout_constraintTop_toBottomOf="@id/time_display"
+        app:layout_constraintBottom_toTopOf="@id/pause_resume_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.5"/>
+
+    <Button
+        android:text="Pause"
+        android:id="@+id/pause_resume_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/start_button"
+        app:layout_constraintBottom_toTopOf="@id/reset_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        android:visibility="gone"/>
+
+    <Button
+        android:text="Reset"
+        android:id="@+id/reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/pause_resume_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

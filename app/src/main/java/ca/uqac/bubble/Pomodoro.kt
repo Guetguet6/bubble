@@ -2,6 +2,7 @@ package ca.uqac.bubble
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
@@ -9,9 +10,12 @@ import androidx.activity.ComponentActivity
 class Pomodoro : ComponentActivity() {
 
     private lateinit var timeDisplay: TextView
-    private lateinit var startStopButton: Button
+    private lateinit var startButton: Button
+    private lateinit var pauseResumeButton: Button
+    private lateinit var resetButton: Button
     private var timer: CountDownTimer? = null
     private var isRunning = false
+    private var isPaused = false
     private var elapsedTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,18 +23,44 @@ class Pomodoro : ComponentActivity() {
         setContentView(R.layout.pomodoro)
 
         timeDisplay = findViewById(R.id.time_display)
-        startStopButton = findViewById(R.id.start_stop_button)
+        startButton = findViewById(R.id.start_button)
+        pauseResumeButton = findViewById(R.id.pause_resume_button)
+        resetButton = findViewById(R.id.reset_button)
 
-        startStopButton.setOnClickListener {
+        startButton.setOnClickListener {
             if (!isRunning) {
                 startTimer()
-                startStopButton.text = "Stop"
-            } else {
-                stopTimer()
-                startStopButton.text = "Start"
+                startButton.visibility = View.GONE
+                pauseResumeButton.visibility = View.VISIBLE
             }
-            isRunning = !isRunning
         }
+
+        pauseResumeButton.setOnClickListener {
+            if (isRunning && !isPaused) {
+                pauseTimer()
+                pauseResumeButton.text = "Resume"
+                resetButton.visibility = View.VISIBLE
+                isPaused = true
+            } else if (isRunning && isPaused) {
+                resumeTimer()
+                pauseResumeButton.text = "Pause"
+                resetButton.visibility = View.GONE
+                isPaused = false
+            }
+        }
+
+        resetButton.setOnClickListener {
+            stopTimer()
+            startButton.visibility = View.VISIBLE
+            pauseResumeButton.visibility = View.GONE
+            resetButton.visibility = View.GONE
+            isRunning = false
+            isPaused = false
+        }
+
+        timeDisplay.text = "00:00:00"
+        pauseResumeButton.visibility = View.GONE
+        resetButton.visibility = View.GONE
     }
 
     private fun startTimer() {
@@ -41,10 +71,24 @@ class Pomodoro : ComponentActivity() {
             }
 
             override fun onFinish() {
-                // do nothing
+                stopTimer()
+                startButton.visibility = View.VISIBLE
+                pauseResumeButton.visibility = View.GONE
+                resetButton.visibility = View.GONE
+                isRunning = false
+                isPaused = false
             }
         }
         timer?.start()
+        isRunning = true
+    }
+
+    private fun pauseTimer() {
+        timer?.cancel()
+    }
+
+    private fun resumeTimer() {
+        startTimer()
     }
 
     private fun stopTimer() {
