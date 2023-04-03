@@ -21,4 +21,6 @@
     <!--Santé-->
     <string name="title_activity_sante">Sante</string>
     <string name="title_activity_cc">Coherence Cardiaque</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
 </resources>
