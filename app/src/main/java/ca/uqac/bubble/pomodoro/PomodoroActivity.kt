@@ -6,103 +6,102 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import ca.uqac.bubble.R
+import ca.uqac.bubble.ui.theme.BubbleAppTheme
 
-class Pomodoro : ComponentActivity() {
+class PomodoroActivity : ComponentActivity() {
 
     private lateinit var timeDisplay: TextView
-    private lateinit var startButton: Button
     private lateinit var pauseResumeButton: Button
-    private lateinit var resetButton: Button
+    private lateinit var stopButton: Button
     private var timer: CountDownTimer? = null
     private var isRunning = false
     private var isPaused = false
-    private var elapsedTime = 0L
+    private var remainingTime = 120_000L // 120 seconds
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pomodoro)
 
         timeDisplay = findViewById(R.id.time_display)
-        startButton = findViewById(R.id.start_button)
         pauseResumeButton = findViewById(R.id.pause_resume_button)
-        resetButton = findViewById(R.id.reset_button)
+        stopButton = findViewById(R.id.stop_button)
 
-        startButton.setOnClickListener {
-            if (!isRunning) {
-                startTimer()
-                startButton.visibility = View.GONE
-                pauseResumeButton.visibility = View.VISIBLE
-            }
-        }
+        updateTimerDisplay()
 
         pauseResumeButton.setOnClickListener {
             if (isRunning && !isPaused) {
                 pauseTimer()
                 pauseResumeButton.text = "Resume"
-                resetButton.visibility = View.VISIBLE
+                stopButton.visibility = View.VISIBLE
                 isPaused = true
             } else if (isRunning && isPaused) {
                 resumeTimer()
                 pauseResumeButton.text = "Pause"
-                resetButton.visibility = View.GONE
+                stopButton.visibility = View.GONE
                 isPaused = false
             }
         }
 
-        resetButton.setOnClickListener {
+        stopButton.setOnClickListener {
             stopTimer()
-            startButton.visibility = View.VISIBLE
-            pauseResumeButton.visibility = View.GONE
-            resetButton.visibility = View.GONE
             isRunning = false
             isPaused = false
+            finish()
         }
 
-        timeDisplay.text = "00:00:00"
-        pauseResumeButton.visibility = View.GONE
-        resetButton.visibility = View.GONE
+        pauseResumeButton.visibility = View.VISIBLE
+        stopButton.visibility = View.GONE
+
+        resumeTimer()
     }
 
-    private fun startTimer() {
-        timer = object : CountDownTimer(Long.MAX_VALUE, 1000) {
+    private fun resumeTimer() {
+        timer = object : CountDownTimer(remainingTime, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                elapsedTime += 1000
+                remainingTime = millisUntilFinished
                 updateTimerDisplay()
             }
 
             override fun onFinish() {
                 stopTimer()
-                startButton.visibility = View.VISIBLE
-                pauseResumeButton.visibility = View.GONE
-                resetButton.visibility = View.GONE
                 isRunning = false
                 isPaused = false
+                finish()
             }
         }
         timer?.start()
         isRunning = true
     }
 
+    private fun updateTimerDisplay(timeDisplay: TextView, remainingTime: Long) {
+        val seconds = (remainingTime / 1000) % 60
+        val minutes = (remainingTime / (1000 * 60)) % 60
+        val hours = remainingTime / (1000 * 60 * 60)
+        timeDisplay.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
+
     private fun pauseTimer() {
         timer?.cancel()
     }
 
-    private fun resumeTimer() {
-        startTimer()
-    }
 
     private fun stopTimer() {
         timer?.cancel()
         timer = null
-        elapsedTime = 0L
+        remainingTime = 0
         updateTimerDisplay()
     }
 
     private fun updateTimerDisplay() {
-        val seconds = (elapsedTime / 1000) % 60
-        val minutes = (elapsedTime / (1000 * 60)) % 60
-        val hours = elapsedTime / (1000 * 60 * 60)
+        val seconds = (remainingTime / 1000) % 60
+        val minutes = (remainingTime / (1000 * 60)) % 60
+        val hours = remainingTime / (1000 * 60 * 60)
         timeDisplay.text = String.format("%02d:%02d:%02d", hours, minutes, seconds)
     }
 

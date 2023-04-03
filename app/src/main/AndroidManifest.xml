@@ -70,9 +70,9 @@
 
         <!--Pomodoro-->
         <activity
-            android:name=".pomodoro.Pomodoro"
+            android:name=".pomodoro.PomodoroActivity"
             android:exported="false"
-            android:theme="@style/Theme.BubbleApp">
-        </activity>
+            android:theme="@style/Theme.BubbleApp"
+            android:parentActivityName=".MainActivity" />
     </application>
 </manifest>

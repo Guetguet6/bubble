@@ -10,21 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/start_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.5"/>
-
-    <Button
-        android:text="Start"
-        android:id="@+id/start_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/time_display"
         app:layout_constraintBottom_toTopOf="@id/pause_resume_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0.5"/>
 
     <Button
@@ -32,22 +21,22 @@
         android:id="@+id/pause_resume_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/start_button"
-        app:layout_constraintBottom_toTopOf="@id/reset_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time_display"
+        app:layout_constraintBottom_toTopOf="@id/stop_button"
         app:layout_constraintVertical_bias="0.5"
         android:visibility="gone"/>
 
     <Button
-        android:text="Reset"
-        android:id="@+id/reset_button"
+        android:text="Stop"
+        android:id="@+id/stop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/pause_resume_button"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pause_resume_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.5"
         android:visibility="gone"/>
 
