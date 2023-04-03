@@ -1,4 +1,4 @@
-package ca.uqac.bubble
+package ca.uqac.bubble.pomodoro
 
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import ca.uqac.bubble.R
 
 class Pomodoro : ComponentActivity() {
 

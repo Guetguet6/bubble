@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">BubbleApp</string>
+    <string name="app_name">Bubble</string>
+
+    <string name="title_activity_to_do_list">ToDoListActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!--Profile-->
+    <string name="default_name">Utilisateur</string>
+    <string name="name_hint">Entrer votre nom</string>
+    <string name="save_button_text">Valider</string>
+    <string name="back">Précédent</string>
+    <string name="forward">Suivant</string>
+
+    <!--Santé-->
+    <string name="title_activity_sante">Sante</string>
+    <string name="title_activity_cc">Coherence Cardiaque</string>
 </resources>
