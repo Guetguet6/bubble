@@ -1,6 +1,7 @@
 package ca.uqac.bubble
 
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
 import android.view.View
@@ -142,6 +143,11 @@ class TacheAdaptateur(
         holder.boutonTacheFaite.isChecked = tacheActuelle.faite
         var color = couleurTache(tacheActuelle.urgence)
         holder.itemView.setBackgroundColor(color)
+        if (tacheActuelle.urgence == 4) {
+            holder.nomTache.setTextColor(Color.WHITE)
+            holder.categorieTache.setTextColor(Color.WHITE)
+            holder.dateTache.setTextColor(Color.WHITE)
+        }
 
         toggleStrikeThrough(holder.nomTache, holder.categorieTache, holder.boutonTacheFaite.isChecked)
         holder.boutonTacheFaite.setOnCheckedChangeListener { _ , isChecked ->
@@ -222,15 +228,15 @@ class TacheAdaptateur(
 
     private fun couleurTache(urgence: Int): Int {
         if (urgence == 1){
-            return android.graphics.Color.parseColor("#E8C2CA")
+            return android.graphics.Color.parseColor("#90E0EF")
         } else if (urgence == 2) {
-            return android.graphics.Color.parseColor("#D1B3C4")
+            return android.graphics.Color.parseColor("#48CAE4")
         } else if (urgence == 3) {
-            return android.graphics.Color.parseColor("#B392AC")
+            return android.graphics.Color.parseColor("#0077B6")
         } else if (urgence == 4) {
-            return android.graphics.Color.parseColor("#735D78")
+            return android.graphics.Color.parseColor("#023E8A")
         } else {
-            return android.graphics.Color.parseColor("#F7C1CD")
+            return android.graphics.Color.parseColor("#CAF0F8")
         }
 
     }
