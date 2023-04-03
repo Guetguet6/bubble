@@ -26,7 +26,7 @@ class PomodoroActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.pomodoro)
+        setContentView(R.layout.activity_pomodoro)
 
         val extras = intent.extras
         if (extras != null) {
