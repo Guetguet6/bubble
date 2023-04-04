@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/etNomTache"
+        style="@android:style/Widget.DeviceDefault.Light.EditText"
+        android:layout_width="166dp"
+        android:layout_height="53dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etCategorie"
+        style="@android:style/Widget.DeviceDefault.Light.EditText"
+        android:layout_width="114dp"
+        android:layout_height="54dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/etNomTache"
+        app:layout_constraintStart_toStartOf="@+id/etNomTache"
+        app:layout_constraintTop_toBottomOf="@+id/etNomTache" />
+
+    <Button
+        android:id="@+id/bDate"
+        style="@android:style/Widget.Material.Light.Button"
+        android:layout_width="152dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#023E8A"
+        android:backgroundTintMode="src_over"
+        android:text="01/01/2023"
+        app:layout_constraintEnd_toEndOf="@+id/etCategorie"
+        app:layout_constraintStart_toStartOf="@+id/etCategorie"
+        app:layout_constraintTop_toBottomOf="@+id/etCategorie" />
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tâche"
+        app:layout_constraintBottom_toBottomOf="@+id/etNomTache"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/etNomTache" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Catégorie"
+        app:layout_constraintBottom_toBottomOf="@+id/etCategorie"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/etNomTache" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date limite"
+        app:layout_constraintBottom_toBottomOf="@+id/bDate"
+        app:layout_constraintEnd_toStartOf="@+id/bDate"
+        app:layout_constraintTop_toBottomOf="@+id/etCategorie" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Urgence"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/bDate" />
+
+    <Button
+        android:id="@+id/bUrgence"
+        style="@android:style/Widget.Material.Light.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#023E8A"
+        android:backgroundTintMode="src_over"
+        android:text="Choisir"
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="@+id/bDate"
+        app:layout_constraintStart_toStartOf="@+id/bDate"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/twChoixUrgence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/bUrgence"
+        app:layout_constraintTop_toBottomOf="@+id/bUrgence" />
+
+    <TextView
+        android:id="@+id/twAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Ajout d'une tâche"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/etNomTache"
+        app:layout_constraintEnd_toEndOf="@+id/etNomTache"
+        app:layout_constraintStart_toStartOf="@+id/etNomTache" />
+</androidx.constraintlayout.widget.ConstraintLayout>
