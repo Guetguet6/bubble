@@ -66,10 +66,14 @@ class ProfileActivity : ComponentActivity() {
         }
 
         // Charge l'image de profil depuis la base de données
-        val imageBitmap = dbHelper.getImageBitmap()
-        if (imageBitmap != null) {
+        try{
+            val imageBitmap = dbHelper.getImageBitmap()
             profileImage.setImageBitmap(imageBitmap)
         }
+        catch (e :NullPointerException){
+            e.printStackTrace()
+        }
+
 
         // Définit un événement de clic pour l'image de profil
         profileImage.setOnClickListener {
