@@ -128,7 +128,8 @@ class ToDoListActivity : AppCompatActivity() {
                         nomTache.setText(tache.titre)
                         val categorieTache = view.findViewById<EditText>(R.id.etCategorie)
                         categorieTache.setText(tache.categorie)
-                        val urgence = view.findViewById<TextView>(R.id.twChoixUrgence)
+                        val twUrgence = view.findViewById<TextView>(R.id.twChoixUrgence)
+                        val urgence = view.findViewById<Button>(R.id.bUrgence)
                         when (tache.urgence){
                             0 -> urgence.setText("Pas d'urgence donnée")
                             1 -> urgence.setText("NON URGENT ET NON IMPORTANT")
@@ -149,8 +150,8 @@ class ToDoListActivity : AppCompatActivity() {
                                 tache.titre = nom
                                 tache.categorie = categorie
                                 tache.deadline = recupererDate(date)
-                                tache.urgence = urgence.text.toString().toInt()
-                                tacheAdaptateur.supprimerTacheSharedPreferences(tache)
+                                tache.urgence = twUrgence.text.toString().toInt()
+                                tacheAdaptateur.supprimerTacheSharedPreferences(tache.id)
                                 stockerTacheSharedPreferences(tache)
                                 tacheAdaptateur.notifyItemChanged(position)
                                 Toast.makeText(this@ToDoListActivity, "Tache modifiée", Toast.LENGTH_SHORT).show()
@@ -240,6 +241,8 @@ class ToDoListActivity : AppCompatActivity() {
         }
         return ids
     }
+
+
 
 
     private fun choisirUrgence(parent: View){
