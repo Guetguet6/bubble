@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ca.uqac.bubble.pomodoro.PomodoroSelectorActivity
 import ca.uqac.bubble.profil.ProfileActivity
-import ca.uqac.bubble.sante.SanteAdapter
+import ca.uqac.bubble.sante.SanteActivity
 import ca.uqac.bubble.todolist.ToDoListActivity
 import ca.uqac.bubble.ui.theme.BubbleAppTheme
 
@@ -107,7 +107,7 @@ class MainActivity : ComponentActivity() {
             }
 
             Button(
-                onClick = {startActivity(Intent(context, SanteAdapter::class.java))},
+                onClick = {startActivity(Intent(context, SanteActivity::class.java))},
                 modifier = Modifier.size(width = 150.dp, height = 50.dp)
             ) {
                 Text(text = "Santé")

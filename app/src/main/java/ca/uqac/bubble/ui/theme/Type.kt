@@ -22,7 +22,11 @@ val Typography = Typography(
         fontFamily = QuickSand,
         fontWeight = FontWeight.Normal,
         fontSize = 30.sp
-    )
+    ),
+
+    defaultFontFamily = QuickSand
+
+
     /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,
