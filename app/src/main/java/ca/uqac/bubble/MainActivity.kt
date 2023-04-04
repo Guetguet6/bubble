@@ -17,12 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ca.uqac.bubble.pomodoro.Pomodoro
 import ca.uqac.bubble.profil.ProfileActivity
-import ca.uqac.bubble.sante.SanteAdapter
+import ca.uqac.bubble.sante.SanteActivity
 import ca.uqac.bubble.todolist.ToDoListActivity
 import ca.uqac.bubble.ui.theme.BubbleAppTheme
 
@@ -39,7 +40,8 @@ class MainActivity : ComponentActivity() {
 
                 ) {
                     Text(text = "Bubble",
-                        fontSize = 30.sp)
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold)
                     buttons()
                 }
             }
@@ -105,7 +107,7 @@ class MainActivity : ComponentActivity() {
             }
 
             Button(
-                onClick = {startActivity(Intent(context, SanteAdapter::class.java))},
+                onClick = {startActivity(Intent(context, SanteActivity::class.java))},
                 modifier = Modifier.size(width = 150.dp, height = 50.dp)
             ) {
                 Text(text = "Santé")
