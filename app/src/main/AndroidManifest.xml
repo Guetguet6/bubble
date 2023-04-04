@@ -73,9 +73,16 @@
 
         <!--Pomodoro-->
         <activity
-            android:name=".pomodoro.Pomodoro"
+            android:name=".pomodoro.PomodoroSelectorActivity"
             android:exported="false"
-            android:theme="@style/Theme.BubbleApp">
-        </activity>
+            android:theme="@style/Theme.BubbleApp"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".pomodoro.PomodoroActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BubbleApp"
+            android:parentActivityName=".pomodoro.PomodoroSelectorActivity" />
+
     </application>
 </manifest>

@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ca.uqac.bubble.pomodoro.Pomodoro
+import ca.uqac.bubble.pomodoro.PomodoroSelectorActivity
 import ca.uqac.bubble.profil.ProfileActivity
 import ca.uqac.bubble.sante.SanteAdapter
 import ca.uqac.bubble.todolist.ToDoListActivity
@@ -114,7 +114,7 @@ class MainActivity : ComponentActivity() {
             }
 
             Button(
-                onClick = {startActivity(Intent(context, Pomodoro::class.java))},
+                onClick = {startActivity(Intent(context, PomodoroSelectorActivity::class.java))},
                 modifier = Modifier.size(width = 150.dp, height = 50.dp)
             ) {
                 Text(text = "Pomodoro")
