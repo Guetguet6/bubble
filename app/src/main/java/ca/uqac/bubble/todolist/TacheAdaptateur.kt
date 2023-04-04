@@ -1,4 +1,4 @@
-package ca.uqac.bubble
+package ca.uqac.bubble.todolist
 
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import java.time.LocalDate
 import java.time.Period
 import java.util.*
+import ca.uqac.bubble.R
 
 
 class TacheAdaptateur(
@@ -50,6 +51,10 @@ class TacheAdaptateur(
         return TacheViewHolder(view)
     }
 
+    fun recupererTaches(): MutableList<Tache> {
+        return taches
+
+    }
 
     fun ajouterTache(tache: Tache) {
         taches.add(tache)
@@ -159,7 +164,6 @@ class TacheAdaptateur(
             supprimerTache(tacheActuelle, position)
             supprimerTacheSharedPreferences(tacheActuelle)
         }
-
     }
 
     fun supprimerTacheSharedPreferences(tache: Tache) {
