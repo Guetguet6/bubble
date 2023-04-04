@@ -70,7 +70,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.*
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.BrokenImage
@@ -80,8 +79,11 @@ import ca.uqac.bubble.R
 
 
 class CoherenceCardiaqueActivity(
-    var tutorial: Boolean = true
+    var tutorial: Boolean = true,
+    var mediaPlayer: MediaPlayer = MediaPlayer()
 ) : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
@@ -131,6 +133,7 @@ class CoherenceCardiaqueActivity(
     }
 
     override fun onDestroy() {
+        mediaPlayer.stop()
         super.onDestroy()
     }
 
@@ -214,9 +217,10 @@ class CoherenceCardiaqueActivity(
     @Composable
     fun sond() {
         var isPlaying by remember { mutableStateOf(false) }
-        val mediaPlayer = remember { MediaPlayer.create(this, R.raw.meditation).apply {
+        mediaPlayer = remember { MediaPlayer.create(this, R.raw.meditation).apply {
             isLooping = true
-        } }
+        }}
+
         Button(onClick = {
             isPlaying = !isPlaying
             if (isPlaying) {
@@ -232,6 +236,9 @@ class CoherenceCardiaqueActivity(
             }
         }
     }
+
+
+
 
     @Preview
     @Composable
