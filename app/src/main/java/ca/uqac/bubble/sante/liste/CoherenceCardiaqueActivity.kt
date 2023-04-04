@@ -145,7 +145,7 @@ class CoherenceCardiaqueActivity(
         ){
             Canvas(
                 modifier = Modifier
-                    .size(size = 300.dp)
+                    .size(size = (LocalConfiguration.current.screenWidthDp/2).dp)
             ) {
                 drawCircle(
                     color = Color.Blue,

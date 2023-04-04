@@ -40,7 +40,6 @@
             android:theme="@style/Theme.BubbleApp">
         </activity>
 
-
         <!--Calendrier-->
         <activity
             android:name=".Calendrier.CalendrierActivity"
@@ -63,14 +62,20 @@
 
         <!--ToDoList-->
         <activity
-            android:name=".ToDoListActivity"
+            android:name=".todolist.ToDoListActivity"
             android:exported="false"
             android:label="@string/title_activity_to_do_list"
             android:theme="@style/Theme.BubbleApp.NoActionBar"
             > <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ToDoListActivity" />
+                android:value=".todolist.ToDoListActivity" />
         </activity>
 
+        <!--Pomodoro-->
+        <activity
+            android:name=".pomodoro.Pomodoro"
+            android:exported="false"
+            android:theme="@style/Theme.BubbleApp">
+        </activity>
     </application>
 </manifest>

@@ -1,4 +1,4 @@
-package ca.uqac.bubble
+package ca.uqac.bubble.todolist
 
 import java.time.LocalDate
 import java.util.*

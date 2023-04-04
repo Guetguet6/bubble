@@ -1,4 +1,4 @@
-package ca.uqac.bubble
+package ca.uqac.bubble.todolist
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -18,11 +18,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import ca.uqac.bubble.databinding.ActivityToDoListBinding
 import ca.uqac.bubble.databinding.PopupTacheBinding
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-
+import kotlin.collections.ArrayList
+import ca.uqac.bubble.R
 
 class ToDoListActivity : AppCompatActivity() {
 
