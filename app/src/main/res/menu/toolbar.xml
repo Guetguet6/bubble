@@ -16,7 +16,7 @@
         app:showAsAction="never" />
     <item android:title="Titre décroissant"
         android:id="@+id/itemTitreD" />
-    <item android:title="Catégorie croissant"
+    <item android:title="Catégorie croissante"
         android:id="@+id/itemCatC" />
     <item android:title="Catégorie décroissante"
         android:id="@+id/itemCatD" />
