@@ -119,9 +119,6 @@ class TacheAdaptateur(
         notifyDataSetChanged()
     }
 
-    fun rechercherTexte(str: String) {
-
-    }
 
     private fun toggleStrikeThrough(nomTache: TextView, categorieTache: TextView, isChecked: Boolean){
         if(isChecked) {
@@ -156,25 +153,27 @@ class TacheAdaptateur(
         }
 
         holder.boutonSupprimerTache.setOnClickListener {
+            supprimerTacheSharedPreferences(tacheActuelle.id)
             supprimerTache(tacheActuelle, position)
-            supprimerTacheSharedPreferences(tacheActuelle)
         }
 
     }
 
-    fun supprimerTacheSharedPreferences(tache: Tache) {
-        val id = tache.id
-
+    fun supprimerTacheSharedPreferences(idTache: Int) {
         val editor = SHARED_PREFS.edit()
-        val idNom = "idNom$id"
+        val idNom = "idNom$idTache"
         editor.remove(idNom)
-        val idCategorie = "idCategorie$id"
+        editor.apply()
+        val idCategorie = "idCategorie$idTache"
         editor.remove(idCategorie)
-        val idFaite = "idFaite$id"
+        editor.apply()
+        val idFaite = "idFaite$idTache"
         editor.remove(idFaite)
-        val idDate = "idDate$id"
+        editor.apply()
+        val idDate = "idDate$idTache"
         editor.remove(idDate)
-        val idUrgence = "idUrgence$id"
+        editor.apply()
+        val idUrgence = "idUrgence$idTache"
         editor.remove(idUrgence)
         editor.apply()
     }
