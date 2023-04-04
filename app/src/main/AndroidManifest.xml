@@ -73,16 +73,29 @@
             android:exported="false"
             android:label="@string/title_activity_to_do_list"
             android:theme="@style/Theme.BubbleApp.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            > <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".todolist.ToDoListActivity" />
         </activity>
 
 
         <!--Pomodoro-->
         <activity
-            android:name=".pomodoro.Pomodoro"
+            android:name=".pomodoro.PomodoroSelectorActivity"
             android:exported="false"
             android:theme="@style/Theme.BubbleApp"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity
+            android:name=".pomodoro.PomodoroActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BubbleApp"
+            android:parentActivityName=".pomodoro.PomodoroSelectorActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
     </application>
 </manifest>
