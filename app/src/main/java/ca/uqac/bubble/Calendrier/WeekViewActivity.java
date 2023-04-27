@@ -17,12 +17,15 @@ import java.util.ArrayList;
 import static ca.uqac.bubble.Calendrier.CalendarUtils.daysInWeekArray;
 import static ca.uqac.bubble.Calendrier.CalendarUtils.monthYearFromDate;
 
+import ca.uqac.bubble.MyDatabaseHelper;
 import ca.uqac.bubble.R;
 
 
 public class WeekViewActivity extends Activity implements CalendarAdapter.OnItemListener
 {
     private TextView monthYearText;
+
+    private MyDatabaseHelper dbHelper;
     private RecyclerView calendarRecyclerView;
     private ListView eventListView;
 
@@ -87,7 +90,8 @@ public class WeekViewActivity extends Activity implements CalendarAdapter.OnItem
 
     private void setEventAdpater()
     {
-        ArrayList<Event> dailyEvents = Event.eventsForDate(CalendarUtils.selectedDate);
+        dbHelper = new MyDatabaseHelper(this);
+        ArrayList<Event> dailyEvents = dbHelper.getEventsByDate(CalendarUtils.selectedDate);
         EventAdapter eventAdapter = new EventAdapter(getApplicationContext(), dailyEvents);
         eventListView.setAdapter(eventAdapter);
     }
