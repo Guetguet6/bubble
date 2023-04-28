@@ -16,7 +16,7 @@ class NotificationService : Service() {
     override fun onCreate() {
         super.onCreate()
         val intentFilter = IntentFilter().apply {
-            addAction(Intent.ACTION_TIME_TICK)
+            addAction(Intent.ACTION_DATE_CHANGED)
         }
         registerReceiver(notificationScheduler, intentFilter)
     }

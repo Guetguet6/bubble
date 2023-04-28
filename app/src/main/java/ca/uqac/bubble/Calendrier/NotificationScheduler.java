@@ -1,5 +1,6 @@
 package ca.uqac.bubble.Calendrier;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 import java.time.LocalDate;
@@ -24,7 +26,7 @@ public class NotificationScheduler extends BroadcastReceiver {
     private static final String CHANNEL_NAME = "channel_name";
     private static final String CHANNEL_DESCRIPTION = "channel_description";
     private static final int NOTIFICATION_ID = 1;
-
+    private static final long INTERVAL = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -58,16 +60,28 @@ public class NotificationScheduler extends BroadcastReceiver {
         );
 
         if (cursor != null && cursor.moveToFirst()) {
-            do {
-                int nbEvent = cursor.getCount();
-                showNotification(context, nbEvent);
-            } while (cursor.moveToNext());
+            int nbEvent = cursor.getCount();
+            showNotification(context, nbEvent);
             cursor.close();
         }
 
         db.close();
+
+        // Schedule the next alarm to trigger in 24 hours
+        scheduleNotification(context);
     }
 
+    private void scheduleNotification(Context context) {
+        Intent intent = new Intent(context, NotificationScheduler.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + INTERVAL, pendingIntent);
+        } else {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + INTERVAL, pendingIntent);
+        }
+    }
 
     private void showNotification(Context context, int nbEvent) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -87,7 +101,6 @@ public class NotificationScheduler extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(Notification.CATEGORY_STATUS)
                 .build();
-
         notificationManager.notify(NOTIFICATION_ID, builder);
     }
 }
