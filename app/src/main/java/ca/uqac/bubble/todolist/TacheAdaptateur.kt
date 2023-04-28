@@ -67,11 +67,18 @@ class TacheAdaptateur(
         notifyItemRangeChanged(0, itemCount)
     }
 
-    fun supprimerTachesFaites() {
+    fun supprimerTachesFaites(): MutableList<Tache> {
+        var tachesASupprimer: MutableList<Tache> = mutableListOf()
+        for(tache in taches){
+            if(tache.faite){
+                tachesASupprimer.add(tache)
+            }
+        }
         taches.removeAll { tache ->
             tache.faite
         }
         notifyDataSetChanged()
+        return tachesASupprimer
     }
 
     fun triTitreCroissant() {

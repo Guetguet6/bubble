@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.widget.Button
@@ -69,7 +70,22 @@ class ToDoListActivity : AppCompatActivity() {
         }
 
         binding.bSupprimerTache.setOnClickListener {
-            tacheAdaptateur.supprimerTachesFaites()
+            var tachesASupprimer = tacheAdaptateur.supprimerTachesFaites()
+            var keys = SHARED_PREFS.all.keys
+            for (key in keys) {
+                val value = SHARED_PREFS.all[key]
+                Log.d("SharedPreferences", "$key: $value")
+            }
+            for(tache in tachesASupprimer){
+                Log.d("SharedPreferences", "id : ${tache.id}")
+                supprimerTacheSharedPreferences(tache.id)
+            }
+            Log.d("SharedPreferences", "===================================")
+            keys = SHARED_PREFS.all.keys
+            for (key in keys) {
+                val value = SHARED_PREFS.all[key]
+                Log.d("SharedPreferences", "$key: $value")
+            }
         }
 
 
@@ -225,7 +241,7 @@ class ToDoListActivity : AppCompatActivity() {
 
             val urgenceTache: Int = SHARED_PREFS.getInt("idUrgence$id", 0)
 
-            taches.add(Tache(titre = nomTache, categorie = categorieTache, faite = faite, deadline = deadline, urgence = urgenceTache))
+            taches.add(Tache(id = id,titre = nomTache, categorie = categorieTache, faite = faite, deadline = deadline, urgence = urgenceTache))
         }
 
         return taches
@@ -376,6 +392,21 @@ class ToDoListActivity : AppCompatActivity() {
         val idUrgence = "idUrgence$id"
         editor.putInt(idUrgence, tache.urgence)
 
+        editor.apply()
+    }
+
+    fun supprimerTacheSharedPreferences(idTache: Int) {
+        val editor = SHARED_PREFS.edit()
+        val idNom = "idNom$idTache"
+        editor.remove(idNom)
+        val idCategorie = "idCategorie$idTache"
+        editor.remove(idCategorie)
+        val idFaite = "idFaite$idTache"
+        editor.remove(idFaite)
+        val idDate = "idDate$idTache"
+        editor.remove(idDate)
+        val idUrgence = "idUrgence$idTache"
+        editor.remove(idUrgence)
         editor.apply()
     }
 }
