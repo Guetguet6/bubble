@@ -1,5 +1,8 @@
 package ca.uqac.bubble
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,13 +24,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ca.uqac.bubble.Calendrier.NotificationScheduler
+import ca.uqac.bubble.Calendrier.NotificationService
 import ca.uqac.bubble.pomodoro.PomodoroSelectorActivity
 import ca.uqac.bubble.profil.ProfileActivity
 import ca.uqac.bubble.sante.SanteActivity
 import ca.uqac.bubble.todolist.ToDoListActivity
 import ca.uqac.bubble.ui.theme.BubbleAppTheme
+import java.util.*
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -45,7 +52,14 @@ class MainActivity : ComponentActivity() {
                     buttons()
                 }
             }
-        }/*
+        }
+
+        // Démarrer le service
+        val serviceIntent = Intent(this, NotificationService::class.java)
+        startService(serviceIntent)
+
+
+        /*
         setContentView(R.layout.activity_main)
 
         val calendrierbutton = findViewById<Button>(R.id.calendrier_btn)

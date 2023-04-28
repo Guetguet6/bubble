@@ -72,7 +72,7 @@ public class EventEditActivity extends Activity
     public void saveEventAction(View view) {
         dbHelper = new MyDatabaseHelper(this);
         String eventName = eventNameET.getText().toString();
-        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time);
+        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time,CalendarUtils.selectedDate.atTime(time));
         Event.eventsList.add(newEvent);
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -80,6 +80,7 @@ public class EventEditActivity extends Activity
         values.put("nom", eventName);
         values.put("date", String.valueOf(CalendarUtils.selectedDate));
         values.put("time", String.valueOf(time));
+        values.put("dateTime", String.valueOf(CalendarUtils.selectedDate.atTime(time)));
 
         db.insert("calendrier", null, values);
         dbHelper.close();

@@ -11,13 +11,12 @@ import ca.uqac.bubble.Calendrier.Event
 import java.io.ByteArrayOutputStream
 import java.time.LocalDate
 import java.time.LocalTime
-import java.util.ArrayList
 
 class MyDatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 4
         private const val DATABASE_NAME = "bubble.db"
 
         private const val SQL_CREATE_ENTRIES =
@@ -26,10 +25,19 @@ class MyDatabaseHelper(context: Context) :
         private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS profil"
 
         private const val SQL_CREATE_CALENDAR_ENTRIES =
-            "CREATE TABLE calendrier (id INTEGER PRIMARY KEY, nom TEXT, date LocalDate, time LocalTime)"
+            "CREATE TABLE calendrier (id INTEGER PRIMARY KEY, nom TEXT, date LocalDate, time LocalTime, dateTime LocalDateTime )"
 
         private const val SQL_DELETE_CALENDAR_ENTRIES = "DROP TABLE IF EXISTS calendrier"
 
+    }
+
+    object EventEntry {
+        const val TABLE_NAME = "calendrier"
+        const val COLUMN_NAME_ID = "id"
+        const val COLUMN_NAME_NAME = "nom"
+        const val COLUMN_NAME_DATE = "date"
+        const val COLUMN_NAME_TIME = "time"
+        const val COLUMN_NAME_DATETIME = "dateTime"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -41,14 +49,6 @@ class MyDatabaseHelper(context: Context) :
         }
 
         db?.insert("profil", null, contentValues)
-
-        val values = ContentValues().apply {
-            put("id", "1")
-            put("nom", "Ma réunion")
-            put("date", "2023-05-01")
-            put("time", "14:30:00")
-        }
-        db?.insert("calendrier", null, values)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -91,7 +91,8 @@ class MyDatabaseHelper(context: Context) :
                 val nom = cursor.getString(cursor.getColumnIndex("nom"))
                 val date = LocalDate.parse(cursor.getString(cursor.getColumnIndex("date")))
                 val time = LocalTime.parse(cursor.getString(cursor.getColumnIndex("time")))
-                eventsList.add(Event(nom, date, time))
+                val dateTime = date.atTime(time)
+                eventsList.add(Event(nom, date, time,dateTime))
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -111,7 +112,8 @@ class MyDatabaseHelper(context: Context) :
             val nom = cursor.getString(cursor.getColumnIndex("nom"))
             val date = LocalDate.parse(cursor.getString(cursor.getColumnIndex("date")))
             val time = LocalTime.parse(cursor.getString(cursor.getColumnIndex("time")))
-            event = Event(nom, date, time)
+            val dateTime = date.atTime(time)
+            event = Event(nom, date, time, dateTime)
         }
         cursor.close()
         db.close()
@@ -128,7 +130,8 @@ class MyDatabaseHelper(context: Context) :
             do {
                 val nom = cursor.getString(cursor.getColumnIndex("nom"))
                 val time = LocalTime.parse(cursor.getString(cursor.getColumnIndex("time")))
-                eventsList.add(Event(nom, date, time))
+                val dateTime = date.atTime(time)
+                eventsList.add(Event(nom, date, time, dateTime))
             } while (cursor.moveToNext())
         }
         cursor.close()
