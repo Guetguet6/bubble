@@ -21,11 +21,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.ui.res.painterResource
 import ca.uqac.bubble.pomodoro.PomodoroSelectorActivity
 import ca.uqac.bubble.profil.ProfileActivity
 import ca.uqac.bubble.sante.SanteActivity
 import ca.uqac.bubble.todolist.ToDoListActivity
 import ca.uqac.bubble.ui.theme.BubbleAppTheme
+import ca.uqac.bubble.ui.theme.Topbar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +45,15 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background,
 
                 ) {
-                    Text(text = "Bubble",
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold)
-                    buttons()
+                    Column {
+                        TopBar()
+                        Text(
+                            text = "Bubble",
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        buttons()
+                    }
                 }
             }
         }/*
@@ -100,13 +111,6 @@ class MainActivity : ComponentActivity() {
             }
 
             Button(
-                onClick = { startActivity(Intent(context, ProfileActivity::class.java)) },
-                modifier = Modifier.size(width = 150.dp, height = 50.dp)
-            ) {
-                Text(text = "Profil Utilisateur")
-            }
-
-            Button(
                 onClick = {startActivity(Intent(context, SanteActivity::class.java))},
                 modifier = Modifier.size(width = 150.dp, height = 50.dp)
             ) {
@@ -131,8 +135,63 @@ class MainActivity : ComponentActivity() {
             Surface (
                 modifier = Modifier.fillMaxSize()
             ) {
-                buttons()
+                Column {
+                    TopBar()
+                    Text(
+                        text = "Bubble",
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    buttons()
+                }
             }
         }
     }
+
+    @Composable
+    fun TopBar() {
+        val context = LocalContext.current;
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .height(92.dp)
+                .fillMaxWidth()
+                .background(color = Topbar ,)
+                .padding(horizontal = 16.dp),
+            content = {
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo",
+                    modifier = Modifier
+                        .height(72.dp)
+                        .width(72.dp)
+                )
+                Row(
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth(),
+                    content = {
+                        Text(
+                            text = "Profile",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 24.sp,
+                            color = MaterialTheme.colors.primary,
+                            modifier = Modifier
+                                .padding(start = 20.dp, end = 16.dp)
+                                .clickable(onClick = { startActivity(Intent(context, ProfileActivity::class.java)) })
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.default_profile_image),
+                            contentDescription = "Profile image",
+                            modifier = Modifier
+                                .height(72.dp)
+                                .width(72.dp)
+                                .clickable(onClick = { startActivity(Intent(context, ProfileActivity::class.java)) })
+                        )
+                    }
+                )
+            }
+        )
+    }
+
 }

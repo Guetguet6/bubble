@@ -34,9 +34,11 @@ class ProfileActivity : ComponentActivity() {
 
         // Récupération du nom d'utilisateur enregistré ou valeur par défaut
         val sharedPref = getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE)
-        val defaultName = getString(R.string.default_name)
-        val userName = sharedPref.getString("USER_NAME", defaultName)
 
+        val backButton: Button = findViewById(R.id.retourButton)
+        backButton.setOnClickListener{
+            this.finish()
+        }
         val saveButton: Button = findViewById(R.id.saveButton)
         saveButton.setOnClickListener {
             val newName = nameEditText.text.toString()
