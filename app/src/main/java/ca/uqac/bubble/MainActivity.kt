@@ -1,26 +1,29 @@
 package ca.uqac.bubble
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import ca.uqac.bubble.Calendrier.CalendrierActivity
+import ca.uqac.bubble.BottomNavItem
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ca.uqac.bubble.pomodoro.PomodoroActivity
 import ca.uqac.bubble.pomodoro.PomodoroSelectorActivity
 import ca.uqac.bubble.profil.ProfileActivity
 import ca.uqac.bubble.sante.SanteActivity
@@ -28,21 +31,44 @@ import ca.uqac.bubble.todolist.ToDoListActivity
 import ca.uqac.bubble.ui.theme.BubbleAppTheme
 
 class MainActivity : ComponentActivity() {
+    private val navItems = listOf(
+        BottomNavItem("Tâches", Icons.Filled.Task),
+        BottomNavItem("Calendrier", Icons.Filled.CalendarMonth),
+        BottomNavItem("Accueil", Icons.Filled.Home),
+        BottomNavItem("Pomodoro", Icons.Filled.Timer),
+        BottomNavItem("Santé", Icons.Filled.MonitorHeart)
+    )
+    private var selectedIndex by mutableStateOf(2)
+
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BubbleAppTheme {
                 // A surface container using the 'background' color from the theme
-                Surface (
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    color = MaterialTheme.colors.background,
-
+                Scaffold(
+                    bottomBar = {
+                        BottomNavigationBar(
+                            items = navItems,
+                            selectedIndex = selectedIndex,
+                            onSelectedIndexChanged = { newIndex ->
+                                selectedIndex = newIndex
+                            }
+                        )
+                    }
                 ) {
-                    Text(text = "Bubble",
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold)
-                    buttons()
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        color = MaterialTheme.colors.background,
+                    ) {
+                        Text(
+                            text = "Bubble",
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        buttons()
+                    }
                 }
             }
         }/*
@@ -135,4 +161,68 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    @Composable
+    fun BottomNavigationBar(
+        items: List<BottomNavItem>,
+        selectedIndex: Int,
+        onSelectedIndexChanged: (Int) -> Unit
+    ) {
+        val context = LocalContext.current
+        BottomNavigation(
+            backgroundColor = MaterialTheme.colors.primary,
+            elevation = 8.dp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp) // adjust the height as needed
+        ) {
+            items.forEachIndexed { index, item ->
+                BottomNavigationItem(
+                    icon = { Icon(item.icon, contentDescription = item.title) },
+                    selected = selectedIndex == index,
+                    onClick = {
+                        onSelectedIndexChanged(index)
+                        // Create an Intent to switch activities
+                        when (index) {
+                            0 -> context.startActivity(
+                                Intent(
+                                    context,
+                                    ToDoListActivity::class.java
+                                )
+                            )
+                            1 -> context.startActivity(
+                                Intent(
+                                    context,
+                                    CalendrierActivity::class.java
+                                )
+                            )
+                            2 -> context.startActivity(
+                                Intent(
+                                    context,
+                                    MainActivity::class.java
+                                )
+                            )
+                            3 -> context.startActivity(
+                                Intent(
+                                    context,
+                                    PomodoroActivity::class.java
+                                )
+                            )
+                            4 -> context.startActivity(
+                                Intent(
+                                    context,
+                                    SanteActivity::class.java
+                                )
+                            )
+                        }
+                    },
+                    selectedContentColor = MaterialTheme.colors.secondary,
+                    unselectedContentColor = Color.White,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        }
+    }
 }
+
+
