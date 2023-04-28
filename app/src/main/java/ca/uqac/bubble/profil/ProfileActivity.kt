@@ -1,6 +1,7 @@
 package ca.uqac.bubble.profil
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -75,10 +76,26 @@ class ProfileActivity : ComponentActivity() {
         }
 
 
-        // Définit un événement de clic pour l'image de profil
         profileImage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            getImage.launch(intent)
+            val options = arrayOf<CharSequence>("Prendre une photo", "Choisir depuis la galerie", "Annuler")
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Ajouter une photo")
+            builder.setItems(options) { dialog, item ->
+                when {
+                    options[item] == "Prendre une photo" -> {
+                        val takePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        getImage.launch(takePicture)
+                    }
+                    options[item] == "Choisir depuis la galerie" -> {
+                        val pickPhoto = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                        getImage.launch(pickPhoto)
+                    }
+                    options[item] == "Annuler" -> {
+                        dialog.dismiss()
+                    }
+                }
+            }
+            builder.show()
         }
 
         nameTextView.setText(dbHelper.getNom())
