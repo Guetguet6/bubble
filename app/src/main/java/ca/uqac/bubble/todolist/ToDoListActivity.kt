@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -14,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.compose.ui.graphics.Color
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
@@ -26,6 +28,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 import ca.uqac.bubble.R
+import ca.uqac.bubble.ui.theme.Purple200
 
 class ToDoListActivity : AppCompatActivity() {
 
@@ -50,6 +53,7 @@ class ToDoListActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayShowHomeEnabled(true)
         actionBar?.title = "Liste des tâches"
+        actionBar?.setBackgroundDrawable(ColorDrawable(Purple200.hashCode()))
 
 
 
@@ -193,7 +197,6 @@ class ToDoListActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.toolbar, menu)
 
         val toolbar = menu?.findItem(R.id.toolbar)
-
         toolbar?.setIcon(R.drawable.icon_filter)
 
         return true

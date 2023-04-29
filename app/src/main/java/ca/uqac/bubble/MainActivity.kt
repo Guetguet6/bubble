@@ -30,6 +30,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.res.painterResource
 import ca.uqac.bubble.pomodoro.PomodoroActivity
 import ca.uqac.bubble.Calendrier.NotificationScheduler
@@ -39,7 +40,7 @@ import ca.uqac.bubble.profil.ProfileActivity
 import ca.uqac.bubble.sante.SanteActivity
 import ca.uqac.bubble.todolist.ToDoListActivity
 import ca.uqac.bubble.ui.theme.BubbleAppTheme
-import ca.uqac.bubble.ui.theme.Topbar
+import ca.uqac.bubble.ui.theme.Purple200
 import java.util.*
 
 class MainActivity : ComponentActivity() {
@@ -69,17 +70,21 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) {
-                    Column {
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally
+                            ){
                         TopBar()
                         Surface(
                             modifier = Modifier
-                                .fillMaxSize(),
+                                .fillMaxSize()
+                                .align(CenterHorizontally),
                             color = MaterialTheme.colors.background,
                         ) {
                             Text(
-                                text = "Bubble",
+                                text = "Bienvenue sur Bubble",
                                 fontSize = 30.sp,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.align(CenterHorizontally)
                             )
                             buttons()
                         }
@@ -140,7 +145,7 @@ class MainActivity : ComponentActivity() {
                 onClick = { startActivity(Intent(context, ToDoListActivity::class.java)) },
                 modifier = Modifier.size(width = 150.dp, height = 50.dp)
             ) {
-                Text(text = "ToDoList")
+                Text(text = "Tâches")
             }
 
             Button(
@@ -194,17 +199,17 @@ class MainActivity : ComponentActivity() {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .height(92.dp)
+                .height(70.dp)
                 .fillMaxWidth()
-                .background(color = Topbar,)
+                .background(Purple200)
                 .padding(horizontal = 16.dp),
             content = {
                 Image(
                     painter = painterResource(id = R.drawable.logo),
                     contentDescription = "Logo",
                     modifier = Modifier
-                        .height(72.dp)
-                        .width(72.dp)
+                        .height(50.dp)
+                        .width(50.dp)
                 )
                 Row(
                     horizontalArrangement = Arrangement.End,
@@ -221,19 +226,18 @@ class MainActivity : ComponentActivity() {
                         }),
                     content = {
                         Text(
-                            text = "Profile",
+                            text = "Profil",
                             fontWeight = FontWeight.Bold,
                             fontSize = 24.sp,
-                            color = MaterialTheme.colors.primary,
                             modifier = Modifier
                                 .padding(start = 20.dp, end = 16.dp)
                         )
                         Image(
                             painter = painterResource(id = R.drawable.default_profile_image),
-                            contentDescription = "Profile image",
+                            contentDescription = "Profil image",
                             modifier = Modifier
-                                .height(72.dp)
-                                .width(72.dp)
+                                .height(50.dp)
+                                .width(50.dp)
                         )
                     }
                 )
