@@ -209,7 +209,16 @@ class MainActivity : ComponentActivity() {
                 Row(
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = {
+                            startActivity(
+                                Intent(
+                                    context,
+                                    ProfileActivity::class.java
+                                )
+                            )
+                        }),
                     content = {
                         Text(
                             text = "Profile",
@@ -218,14 +227,6 @@ class MainActivity : ComponentActivity() {
                             color = MaterialTheme.colors.primary,
                             modifier = Modifier
                                 .padding(start = 20.dp, end = 16.dp)
-                                .clickable(onClick = {
-                                    startActivity(
-                                        Intent(
-                                            context,
-                                            ProfileActivity::class.java
-                                        )
-                                    )
-                                })
                         )
                         Image(
                             painter = painterResource(id = R.drawable.default_profile_image),
@@ -233,14 +234,6 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier
                                 .height(72.dp)
                                 .width(72.dp)
-                                .clickable(onClick = {
-                                    startActivity(
-                                        Intent(
-                                            context,
-                                            ProfileActivity::class.java
-                                        )
-                                    )
-                                })
                         )
                     }
                 )
@@ -294,7 +287,7 @@ class MainActivity : ComponentActivity() {
                             3 -> context.startActivity(
                                 Intent(
                                     context,
-                                    PomodoroActivity::class.java
+                                    PomodoroSelectorActivity::class.java
                                 )
                             )
 
