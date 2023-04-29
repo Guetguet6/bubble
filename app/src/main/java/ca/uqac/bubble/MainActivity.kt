@@ -31,6 +31,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import ca.uqac.bubble.pomodoro.PomodoroActivity
 import ca.uqac.bubble.Calendrier.NotificationScheduler
 import ca.uqac.bubble.Calendrier.NotificationService
@@ -76,11 +77,6 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxSize(),
                             color = MaterialTheme.colors.background,
                         ) {
-                            Text(
-                                text = "Bubble",
-                                fontSize = 30.sp,
-                                fontWeight = FontWeight.Bold
-                            )
                             buttons()
                         }
                     }
@@ -126,45 +122,102 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun buttons() {
-        val context = LocalContext.current;
-
+        val context = LocalContext.current
 
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(
-                space = 20.dp,
-                alignment = Alignment.CenterVertically
-            ),
+            modifier = Modifier.padding(vertical = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = { startActivity(Intent(context, ToDoListActivity::class.java)) },
-                modifier = Modifier.size(width = 150.dp, height = 50.dp)
+            Text(
+                text = "Bienvenue sur Bubble, ton application de développement personnel, booste ta " +
+                        "productivité personnelle, professionnelle ainsi que ton bien-être à partir " +
+                        "d’une seule application !",
+                style = MaterialTheme.typography.h6,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(bottom = 24.dp)
+            )
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "ToDoList")
+                Text(
+                    text = "Planifie tes tâches avec notre TodoList",
+                    style = MaterialTheme.typography.h6,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+
+                Button(
+                    onClick = { startActivity(Intent(context, ToDoListActivity::class.java)) },
+                    modifier = Modifier.size(width = 150.dp, height = 50.dp)
+                ) {
+                    Text(text = "ToDoList")
+                }
             }
 
-            Button(
-                onClick = { startActivity(Intent(context, CalendrierActivity::class.java)) },
-                modifier = Modifier.size(width = 150.dp, height = 50.dp)
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Calendrier")
+                Text(
+                    text = "Organise ton agenda avec notre calendrier",
+                    style = MaterialTheme.typography.h6,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+
+                Button(
+                    onClick = { startActivity(Intent(context, CalendrierActivity::class.java)) },
+                    modifier = Modifier.size(width = 150.dp, height = 50.dp)
+                ) {
+                    Text(text = "Calendrier")
+                }
             }
 
-            Button(
-                onClick = { startActivity(Intent(context, SanteActivity::class.java)) },
-                modifier = Modifier.size(width = 150.dp, height = 50.dp)
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Santé")
+                Text(
+                    text = "Fais des sessions de Pomodoro pour travailler",
+                    style = MaterialTheme.typography.h6,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+
+                Button(
+                    onClick = { startActivity(Intent(context, PomodoroSelectorActivity::class.java)) },
+                    modifier = Modifier.size(width = 150.dp, height = 50.dp)
+                ) {
+                    Text(text = "Pomodoro")
+                }
             }
 
-            Button(
-                onClick = { startActivity(Intent(context, PomodoroSelectorActivity::class.java)) },
-                modifier = Modifier.size(width = 150.dp, height = 50.dp)
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Pomodoro")
+                Text(
+                    text = "Relaxe-toi après chaque session de travail",
+                    style = MaterialTheme.typography.h6,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+
+                Button(
+                    onClick = { startActivity(Intent(context, SanteActivity::class.java)) },
+                    modifier = Modifier.size(width = 150.dp, height = 50.dp)
+                ) {
+                    Text(text = "Sante")
+                }
             }
-
-
         }
     }
 
@@ -177,11 +230,6 @@ class MainActivity : ComponentActivity() {
             ) {
                 Column {
                     TopBar()
-                    Text(
-                        text = "Bubble",
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold
-                    )
                     buttons()
                 }
             }
@@ -224,7 +272,7 @@ class MainActivity : ComponentActivity() {
                             text = "Profile",
                             fontWeight = FontWeight.Bold,
                             fontSize = 24.sp,
-                            color = MaterialTheme.colors.primary,
+                            color = Color.White,
                             modifier = Modifier
                                 .padding(start = 20.dp, end = 16.dp)
                         )
