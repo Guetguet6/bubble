@@ -30,9 +30,9 @@ class PomodoroActivity : ComponentActivity() {
 
         val extras = intent.extras
         if (extras != null) {
-            pomodoroPhase = extras.getLong("pomodoroPhase", pomodoroPhase)
-            breakPhase = extras.getLong("breakPhase", breakPhase)
-            numberCycles = extras.getInt("numberCycles", numberCycles)
+            pomodoroPhase = (extras.getString("activeCycle")?.toLong() ?: pomodoroPhase) * 60000
+            breakPhase = (extras.getString("breakCycle")?.toLong() ?: breakPhase) * 60000
+            numberCycles = extras.getString("numberCycles")?.toInt() ?: numberCycles
         }
 
         remainingTime = pomodoroPhase
@@ -86,12 +86,14 @@ class PomodoroActivity : ComponentActivity() {
                     isPomodoroPhase = false
                     remainingTime = breakPhase
                     updatePhaseDisplay()
+                    resumeTimer()
                 } else if (!isPomodoroPhase && numberCycles > 0) {
                     isPomodoroPhase = true
                     remainingTime = pomodoroPhase
                     numberCycles--
                     updatePhaseDisplay()
                     updateCyclesDisplay()
+                    resumeTimer()
                 } else {
                     stopTimer()
                     isRunning = false
