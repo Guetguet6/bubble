@@ -11,8 +11,10 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cycles_display"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"/>
 
     <TextView
         android:id="@+id/cycles_display"
@@ -20,9 +22,11 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/phase_display"
+        app:layout_constraintBottom_toTopOf="@id/time_display"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        app:layout_constraintVertical_chainStyle="packed"/>
 
     <TextView
         android:id="@+id/time_display"
@@ -30,8 +34,10 @@
         android:layout_height="wrap_content"
         android:textSize="36sp"
         app:layout_constraintTop_toBottomOf="@id/cycles_display"
+        app:layout_constraintBottom_toTopOf="@id/pause_resume_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintVertical_bias="0.5"/>
 
     <Button
@@ -40,9 +46,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/time_display"
+        app:layout_constraintBottom_toTopOf="@id/stop_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_chainStyle="packed"
         android:visibility="gone"/>
 
     <Button
@@ -54,6 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintVertical_bias="0.5"
         android:visibility="gone"/>
 

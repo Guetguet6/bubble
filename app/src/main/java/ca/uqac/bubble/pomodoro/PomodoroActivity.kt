@@ -52,12 +52,12 @@ class PomodoroActivity : ComponentActivity() {
                 pauseTimer()
                 pauseResumeButton.text = "Resume"
                 stopButton.visibility = View.VISIBLE
-                isPaused = true
-            } else if (isRunning) {
+                isRunning = false
+            } else if (!isRunning) {
                 resumeTimer()
                 pauseResumeButton.text = "Pause"
                 stopButton.visibility = View.GONE
-                isPaused = false
+                isRunning = true
             }
         }
 
