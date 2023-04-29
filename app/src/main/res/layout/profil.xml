@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImageView"
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -35,6 +35,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/save_button_text"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/retourButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retour"
         android:layout_marginTop="16dp"/>
 
 </LinearLayout>

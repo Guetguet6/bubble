@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,12 +19,17 @@
         android:theme="@style/Theme.BubbleApp"
         tools:targetApi="31">
 
+        <meta-data
+            android:name="DB_VERSION"
+            android:value="4" />
+
         <!--Main Activity-->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BubbleApp">
+            android:theme="@style/Theme.BubbleApp"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,37 +39,43 @@
 
         <!--Santé-->
         <activity
-            android:name=".sante.SanteAdapter"
+            android:name=".sante.SanteActivity"
             android:theme="@style/Theme.BubbleApp"
             android:label="Sante Catégories"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".sante.liste.CoherenceCardiaqueActivity"
             android:exported="true"
             android:label="@string/title_activity_cc"
-            android:theme="@style/Theme.BubbleApp">
+            android:theme="@style/Theme.BubbleApp"
+            android:screenOrientation="portrait">
         </activity>
 
         <!--Calendrier-->
         <activity
             android:name=".Calendrier.CalendrierActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Calendrier.WeekViewActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Calendrier.EventEditActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
         </activity>
 
         <!--Profile-->
         <activity
             android:name=".profil.ProfileActivity"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
         </activity>
 
         <!--ToDoList-->
@@ -65,7 +83,12 @@
             android:name=".todolist.ToDoListActivity"
             android:exported="false"
             android:label="@string/title_activity_to_do_list"
-            android:theme="@style/Theme.BubbleApp.NoActionBar" />
+            android:theme="@style/Theme.BubbleApp.NoActionBar"
+            android:screenOrientation="portrait"
+            > <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".todolist.ToDoListActivity" />
+        </activity>
 
 
         <!--Pomodoro-->
@@ -73,13 +96,27 @@
             android:name=".pomodoro.PomodoroSelectorActivity"
             android:exported="false"
             android:theme="@style/Theme.BubbleApp"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <activity
             android:name=".pomodoro.PomodoroActivity"
             android:exported="false"
             android:theme="@style/Theme.BubbleApp"
-            android:parentActivityName=".pomodoro.PomodoroSelectorActivity" />
+            android:parentActivityName=".pomodoro.PomodoroSelectorActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <service android:name=".Calendrier.NotificationService"/>
+        <receiver android:name=".Calendrier.NotificationScheduler"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+            </intent-filter>
 
+        </receiver>
     </application>
 </manifest>

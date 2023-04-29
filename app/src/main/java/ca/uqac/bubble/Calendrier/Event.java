@@ -1,6 +1,7 @@
 package ca.uqac.bubble.Calendrier;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -26,11 +27,14 @@ public class Event
     private LocalDate date;
     private LocalTime time;
 
-    public Event(String name, LocalDate date, LocalTime time)
+    private LocalDateTime dateTime;
+
+    public Event(String name, LocalDate date, LocalTime time, LocalDateTime dateTime)
     {
         this.name = name;
         this.date = date;
         this.time = time;
+        this.dateTime = dateTime;
     }
 
     public String getName()
@@ -61,5 +65,15 @@ public class Event
     public void setTime(LocalTime time)
     {
         this.time = time;
+    }
+
+    public LocalDateTime getDateTime()
+    {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime time)
+    {
+        this.dateTime = dateTime;
     }
 }

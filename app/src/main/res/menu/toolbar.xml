@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/itemTitreC"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="Titre croissant"
+        app:showAsAction="never" />
+    <item android:title="Titre décroissant"
+        android:id="@+id/itemTitreD" />
+    <item android:title="Catégorie croissante"
+        android:id="@+id/itemCatC" />
+    <item android:title="Catégorie décroissante"
+        android:id="@+id/itemCatD" />
+    <item android:title="Urgence croissante"
+        android:id="@+id/itemUrgenceC" />
+    <item android:title="Urgence décroissante"
+        android:id="@+id/itemUrgenceD"/>
+    <item android:title="Tâches terminées"
+        android:id="@+id/itemFaite"/>
+    <item android:title="Tâches non terminées"
+        android:id="@+id/itemNonFaite"/>
+    <item android:title="Date limite proche"
+        android:id="@+id/itemDateC"/>
+    <item android:title="Date limite éloignée"
+        android:id="@+id/itemDateD"/>
+</menu>
