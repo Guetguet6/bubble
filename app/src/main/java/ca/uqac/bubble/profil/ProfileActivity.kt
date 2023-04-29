@@ -32,7 +32,13 @@ class ProfileActivity : ComponentActivity() {
 
         dbHelper = MyDatabaseHelper(this)
 
+        // Récupération du nom d'utilisateur enregistré ou valeur par défaut
+        val sharedPref = getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE)
 
+        val backButton: Button = findViewById(R.id.retourButton)
+        backButton.setOnClickListener{
+            this.finish()
+        }
         val saveButton: Button = findViewById(R.id.saveButton)
         saveButton.setOnClickListener {
             val newName = nameEditText.text.toString()
@@ -55,7 +61,6 @@ class ProfileActivity : ComponentActivity() {
         catch (e :NullPointerException){
             e.printStackTrace()
         }
-
 
         // Définit un événement de clic pour l'image de profil
         profileImage.setOnClickListener {

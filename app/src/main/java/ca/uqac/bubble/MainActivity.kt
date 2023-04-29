@@ -26,15 +26,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.ui.res.painterResource
 import ca.uqac.bubble.pomodoro.PomodoroActivity
 import ca.uqac.bubble.Calendrier.NotificationScheduler
 import ca.uqac.bubble.Calendrier.NotificationService
-
 import ca.uqac.bubble.pomodoro.PomodoroSelectorActivity
 import ca.uqac.bubble.profil.ProfileActivity
 import ca.uqac.bubble.sante.SanteActivity
 import ca.uqac.bubble.todolist.ToDoListActivity
 import ca.uqac.bubble.ui.theme.BubbleAppTheme
+import ca.uqac.bubble.ui.theme.Topbar
 import java.util.*
 
 class MainActivity : ComponentActivity() {
@@ -64,28 +69,30 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) {
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        color = MaterialTheme.colors.background,
-                    ) {
-                        Text(
-                            text = "Bubble",
-                            fontSize = 30.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        buttons()
+                    Column {
+                        TopBar()
+                        Surface(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            color = MaterialTheme.colors.background,
+                        ) {
+                            Text(
+                                text = "Bubble",
+                                fontSize = 30.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            buttons()
+                        }
                     }
                 }
             }
-        }
 
-        // Démarrer le service
-        val serviceIntent = Intent(this, NotificationService::class.java)
-        startService(serviceIntent)
+            // Démarrer le service
+            val serviceIntent = Intent(this, NotificationService::class.java)
+            startService(serviceIntent)
 
 
-        /*
+            /*
         setContentView(R.layout.activity_main)
 
         val calendrierbutton = findViewById<Button>(R.id.calendrier_btn)
@@ -114,6 +121,7 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(this, Pomodoro::class.java)
             startActivity(intent)
         }*/
+        }
     }
 
     @Composable
@@ -121,9 +129,12 @@ class MainActivity : ComponentActivity() {
         val context = LocalContext.current;
 
 
-        Column (
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(space = 20.dp, alignment = Alignment.CenterVertically),
+            verticalArrangement = Arrangement.spacedBy(
+                space = 20.dp,
+                alignment = Alignment.CenterVertically
+            ),
         ) {
             Button(
                 onClick = { startActivity(Intent(context, ToDoListActivity::class.java)) },
@@ -140,21 +151,14 @@ class MainActivity : ComponentActivity() {
             }
 
             Button(
-                onClick = { startActivity(Intent(context, ProfileActivity::class.java)) },
-                modifier = Modifier.size(width = 150.dp, height = 50.dp)
-            ) {
-                Text(text = "Profil Utilisateur")
-            }
-
-            Button(
-                onClick = {startActivity(Intent(context, SanteActivity::class.java))},
+                onClick = { startActivity(Intent(context, SanteActivity::class.java)) },
                 modifier = Modifier.size(width = 150.dp, height = 50.dp)
             ) {
                 Text(text = "Santé")
             }
 
             Button(
-                onClick = {startActivity(Intent(context, PomodoroSelectorActivity::class.java))},
+                onClick = { startActivity(Intent(context, PomodoroSelectorActivity::class.java)) },
                 modifier = Modifier.size(width = 150.dp, height = 50.dp)
             ) {
                 Text(text = "Pomodoro")
@@ -168,12 +172,80 @@ class MainActivity : ComponentActivity() {
     @Preview
     fun Preview() {
         BubbleAppTheme {
-            Surface (
+            Surface(
                 modifier = Modifier.fillMaxSize()
             ) {
-                buttons()
+                Column {
+                    TopBar()
+                    Text(
+                        text = "Bubble",
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    buttons()
+                }
             }
         }
+    }
+
+    @Composable
+    fun TopBar() {
+        val context = LocalContext.current;
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .height(92.dp)
+                .fillMaxWidth()
+                .background(color = Topbar,)
+                .padding(horizontal = 16.dp),
+            content = {
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo",
+                    modifier = Modifier
+                        .height(72.dp)
+                        .width(72.dp)
+                )
+                Row(
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth(),
+                    content = {
+                        Text(
+                            text = "Profile",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 24.sp,
+                            color = MaterialTheme.colors.primary,
+                            modifier = Modifier
+                                .padding(start = 20.dp, end = 16.dp)
+                                .clickable(onClick = {
+                                    startActivity(
+                                        Intent(
+                                            context,
+                                            ProfileActivity::class.java
+                                        )
+                                    )
+                                })
+                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.default_profile_image),
+                            contentDescription = "Profile image",
+                            modifier = Modifier
+                                .height(72.dp)
+                                .width(72.dp)
+                                .clickable(onClick = {
+                                    startActivity(
+                                        Intent(
+                                            context,
+                                            ProfileActivity::class.java
+                                        )
+                                    )
+                                })
+                        )
+                    }
+                )
+            }
+        )
     }
 
     @Composable
@@ -204,24 +276,28 @@ class MainActivity : ComponentActivity() {
                                     ToDoListActivity::class.java
                                 )
                             )
+
                             1 -> context.startActivity(
                                 Intent(
                                     context,
                                     CalendrierActivity::class.java
                                 )
                             )
+
                             2 -> context.startActivity(
                                 Intent(
                                     context,
                                     MainActivity::class.java
                                 )
                             )
+
                             3 -> context.startActivity(
                                 Intent(
                                     context,
                                     PomodoroActivity::class.java
                                 )
                             )
+
                             4 -> context.startActivity(
                                 Intent(
                                     context,
@@ -238,5 +314,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
