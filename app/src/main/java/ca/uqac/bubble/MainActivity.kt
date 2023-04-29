@@ -130,11 +130,18 @@ class MainActivity : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Bienvenue sur Bubble, ton application de développement personnel, booste ta " +
-                        "productivité personnelle, professionnelle ainsi que ton bien-être à partir " +
+                text = "Bienvenue sur Bubble, ton application de développement personnel.",
+                style = MaterialTheme.typography.h6,
+                textAlign = TextAlign.Center,
+                fontSize = 18.sp,
+                modifier = Modifier.padding(bottom = 24.dp)
+            )
+            Text(
+                text = "Booste ta productivité personnelle, professionnelle ainsi que ton bien-être à partir " +
                         "d’une seule application !",
                 style = MaterialTheme.typography.h6,
                 textAlign = TextAlign.Center,
+                fontSize = 18.sp,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
 
@@ -143,9 +150,10 @@ class MainActivity : ComponentActivity() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Planifie tes tâches avec notre TodoList",
+                    text = "Planifie tes tâches avec notre liste de tâches",
                     style = MaterialTheme.typography.h6,
                     textAlign = TextAlign.Center,
+                    fontSize = 18.sp,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 
@@ -153,7 +161,7 @@ class MainActivity : ComponentActivity() {
                     onClick = { startActivity(Intent(context, ToDoListActivity::class.java)) },
                     modifier = Modifier.size(width = 150.dp, height = 50.dp)
                 ) {
-                    Text(text = "ToDoList")
+                    Text(text = "Tâches")
                 }
             }
 
@@ -167,6 +175,7 @@ class MainActivity : ComponentActivity() {
                     text = "Organise ton agenda avec notre calendrier",
                     style = MaterialTheme.typography.h6,
                     textAlign = TextAlign.Center,
+                    fontSize = 18.sp,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 
@@ -188,6 +197,7 @@ class MainActivity : ComponentActivity() {
                     text = "Fais des sessions de Pomodoro pour travailler",
                     style = MaterialTheme.typography.h6,
                     textAlign = TextAlign.Center,
+                    fontSize = 18.sp,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 
@@ -209,6 +219,7 @@ class MainActivity : ComponentActivity() {
                     text = "Relaxe-toi après chaque session de travail",
                     style = MaterialTheme.typography.h6,
                     textAlign = TextAlign.Center,
+                    fontSize = 18.sp,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 
