@@ -24,7 +24,7 @@ class PomodoroSelectorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BubbleAppTheme {
+            BubbleAppTheme(darkTheme = false) {
                 Column (
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
