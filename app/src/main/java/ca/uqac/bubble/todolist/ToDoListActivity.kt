@@ -191,19 +191,11 @@ class ToDoListActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar, menu)
-        val item = menu?.findItem(R.id.action_search)
-        val searchView = item?.actionView as SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                tacheAdaptateur.filter.filter(query)
-                return false
-            }
 
-            override fun onQueryTextChange(query: String?): Boolean {
-                tacheAdaptateur.filter.filter(query)
-                return false
-            }
-        })
+        val toolbar = menu?.findItem(R.id.toolbar)
+
+        toolbar?.setIcon(R.drawable.icon_filter)
+
         return true
     }
 
@@ -217,7 +209,6 @@ class ToDoListActivity : AppCompatActivity() {
             R.id.itemUrgenceD -> tacheAdaptateur.triUrgenceDecroissante()
             R.id.itemDateC -> tacheAdaptateur.triDeadlineCroissante()
             R.id.itemDateD -> tacheAdaptateur.triDeadlineDecroissante()
-            R.id.action_search -> return true
         }
         return super.onOptionsItemSelected(item)
     }
