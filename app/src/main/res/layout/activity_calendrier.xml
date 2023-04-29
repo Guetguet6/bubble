@@ -8,6 +8,36 @@
     android:orientation="vertical"
     tools:context=".Calendrier.CalendrierActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#0096C7"
+        android:elevation="4dp"
+        android:theme="?attr/actionBarTheme">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:contentDescription="BACK>"
+            android:text="Retour"
+            android:padding="16dp"
+            android:src="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:paddingTop="14dp"
+            android:text="Calendrier"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

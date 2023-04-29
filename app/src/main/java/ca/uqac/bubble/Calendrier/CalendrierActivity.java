@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.time.LocalDate;
@@ -29,6 +31,14 @@ public class CalendrierActivity extends Activity implements CalendarAdapter.OnIt
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendrier);
+        ImageButton backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         initWidgets();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CalendarUtils.selectedDate = LocalDate.now();
