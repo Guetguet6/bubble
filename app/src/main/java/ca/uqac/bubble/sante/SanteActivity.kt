@@ -45,7 +45,7 @@ class SanteActivity : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BubbleAppTheme {
+            BubbleAppTheme(darkTheme = false) {
                 Surface{
                     Column {
                     Text(text = "Sante")

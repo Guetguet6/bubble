@@ -88,7 +88,7 @@ class CoherenceCardiaqueActivity(
         super.onCreate(savedInstanceState)
         try {
             setContent {
-                BubbleAppTheme {
+                BubbleAppTheme(darkTheme = false) {
                     // A surface container using the 'background' color from the theme
                     Surface(
                         modifier = Modifier.fillMaxSize(),
