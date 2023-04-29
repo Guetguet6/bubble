@@ -46,24 +46,10 @@ class ProfileActivity : ComponentActivity() {
             // Affichage du nom d'utilisateur
 
 
+
             // Mise à jour du nom d'utilisateur dans la base de données
-            val db = dbHelper.writableDatabase
-            val contentValues = ContentValues().apply {
-                put("nom", newName)
-            }
-            val updatedRows = db.update("profil", contentValues, null, null)
-
-            if (updatedRows > 0) {
-                Toast.makeText(this, "Nom d'utilisateur modifié avec succès", Toast.LENGTH_SHORT).show()
-
-                // Enregistrement du nouveau nom d'utilisateur dans les préférences partagées
-                with(sharedPref.edit()) {
-                    putString("USER_NAME", newName)
-                    apply()
-                }
-            } else {
-                Toast.makeText(this, "Erreur lors de la modification du nom d'utilisateur", Toast.LENGTH_SHORT).show()
-            }
+            dbHelper.updateNom(newName)
+            Toast.makeText(this, "Nom d'utilisateur modifié avec succès", Toast.LENGTH_SHORT).show()
             nameTextView.setText(dbHelper.getNom())
         }
 

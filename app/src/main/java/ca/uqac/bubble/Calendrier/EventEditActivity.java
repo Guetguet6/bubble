@@ -1,6 +1,8 @@
 package ca.uqac.bubble.Calendrier;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,10 +13,14 @@ import android.widget.TimePicker;
 
 import java.time.LocalTime;
 
+import ca.uqac.bubble.MyDatabaseHelper;
 import ca.uqac.bubble.R;
 
 public class EventEditActivity extends Activity
 {
+
+    private MyDatabaseHelper dbHelper;
+
     private EditText eventNameET;
     private TextView eventDateTV, eventTimeTV;
 
@@ -63,11 +69,22 @@ public class EventEditActivity extends Activity
         eventTimeTV = findViewById(R.id.eventTimeTV);
     }
 
-    public void saveEventAction(View view)
-    {
+    public void saveEventAction(View view) {
+        dbHelper = new MyDatabaseHelper(this);
         String eventName = eventNameET.getText().toString();
-        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time);
+        Event newEvent = new Event(eventName, CalendarUtils.selectedDate, time,CalendarUtils.selectedDate.atTime(time));
         Event.eventsList.add(newEvent);
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nom", eventName);
+        values.put("date", String.valueOf(CalendarUtils.selectedDate));
+        values.put("time", String.valueOf(time));
+        values.put("dateTime", String.valueOf(CalendarUtils.selectedDate.atTime(time)));
+
+        db.insert("calendrier", null, values);
+        dbHelper.close();
+
         finish();
     }
 }
