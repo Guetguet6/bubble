@@ -40,6 +40,7 @@ import ca.uqac.bubble.profil.ProfileActivity
 import ca.uqac.bubble.sante.SanteActivity
 import ca.uqac.bubble.todolist.ToDoListActivity
 import ca.uqac.bubble.ui.theme.BubbleAppTheme
+import ca.uqac.bubble.ui.theme.Purple200
 import ca.uqac.bubble.ui.theme.Topbar
 import java.util.*
 
@@ -242,17 +243,17 @@ class MainActivity : ComponentActivity() {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .height(92.dp)
+                .height(70.dp)
                 .fillMaxWidth()
-                .background(color = Topbar,)
+                .background(color = Purple200)
                 .padding(horizontal = 16.dp),
             content = {
                 Image(
                     painter = painterResource(id = R.drawable.logo),
                     contentDescription = "Logo",
                     modifier = Modifier
-                        .height(72.dp)
-                        .width(72.dp)
+                        .height(50.dp)
+                        .width(50.dp)
                 )
                 Row(
                     horizontalArrangement = Arrangement.End,
@@ -269,7 +270,7 @@ class MainActivity : ComponentActivity() {
                         }),
                     content = {
                         Text(
-                            text = "Profile",
+                            text = "Profil",
                             fontWeight = FontWeight.Bold,
                             fontSize = 24.sp,
                             color = Color.White,
@@ -280,8 +281,8 @@ class MainActivity : ComponentActivity() {
                             painter = painterResource(id = R.drawable.default_profile_image),
                             contentDescription = "Profile image",
                             modifier = Modifier
-                                .height(72.dp)
-                                .width(72.dp)
+                                .height(50.dp)
+                                .width(50.dp)
                         )
                     }
                 )
